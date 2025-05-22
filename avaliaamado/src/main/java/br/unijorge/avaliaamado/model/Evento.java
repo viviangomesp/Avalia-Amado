@@ -1,7 +1,5 @@
 package br.unijorge.avaliaamado.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -34,15 +32,15 @@ public class Evento {
     private String local;
 
     @Column(nullable = false)
-    private LocalDate data;
+    private String data;
 
     @Column(nullable = false)
-    private LocalDateTime hora;
+    private String hora;
 
     @Column(nullable = false)
     private String descricao;
 
     @OneToMany //Um evento pode ter várias avaliações
     private List<Avaliacao> avaliacoes;
-
+    
 }
