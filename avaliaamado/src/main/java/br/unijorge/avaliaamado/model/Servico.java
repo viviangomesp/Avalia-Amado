@@ -2,8 +2,12 @@ package br.unijorge.avaliaamado.model;
 
 import java.util.List;
 
+import br.unijorge.avaliaamado.enums.TipoServico;
+import br.unijorge.avaliaamado.enums.TipoServicoSaude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,8 +26,13 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID_Servico;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String tipo;
+    private TipoServico tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private TipoServicoSaude tipoSaude;
 
     @Column(nullable = false)
     private String descricao;
