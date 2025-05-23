@@ -1,7 +1,5 @@
 package br.unijorge.avaliaamado.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +32,10 @@ public class Avaliacao {
 
     @ManyToOne //Um usuário pode ter várias avaliações
     @JoinColumn(name = "ID_User") //Chave estrangeira para a tabela Usuario
-    private List<Usuario> usuarios;
+    private Usuario usuario;
 
     @ManyToOne //Um evento pode ter várias avaliações
     @JoinColumn(name = "ID_Evento") //Chave estrangeira para a tabela Evento
-    private List<Evento> eventos;
+    private Evento evento;
 
 }
