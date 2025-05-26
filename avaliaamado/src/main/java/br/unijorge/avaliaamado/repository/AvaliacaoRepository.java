@@ -17,4 +17,8 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
     List<Avaliacao> findByNotaGreaterThanEqual(int nota);//Listando por nota maior ou igual a x
 
+    boolean existsByEventoIdAndUsuarioId(Long eventoId, Long usuarioId);
+
+    boolean existsByServicoIdAndUsuarioId(Long servicoId, Long usuarioId);
+
 }

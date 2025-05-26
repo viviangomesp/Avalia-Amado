@@ -3,7 +3,9 @@ package br.unijorge.avaliaamado.repository;
 import br.unijorge.avaliaamado.model.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -15,4 +17,7 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     List<Evento> findByData(String data);//Listando por data
 
+    List<Evento> findAllByOrderByNotaDesc();
+
+    Optional<Evento> findById(long id); // Método para buscar o evento por ID
 }

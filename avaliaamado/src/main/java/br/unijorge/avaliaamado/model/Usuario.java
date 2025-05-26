@@ -20,7 +20,7 @@ public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
-    private long ID_User;
+    private long id;
 
     @Column(nullable = false) //Campo não pode ser nulo
     private String nome;

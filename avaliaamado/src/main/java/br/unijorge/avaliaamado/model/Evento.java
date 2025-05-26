@@ -1,5 +1,7 @@
 package br.unijorge.avaliaamado.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -20,22 +22,25 @@ public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
-    private long ID_Evento;
+    private long id;
 
     @Column(nullable = false) //Campo não pode ser nulo
     private String nome;
 
-    @Column //Pode existir eventos que não aconteceram ou não tem avaliação
     private int nota; //Média das avaliações do evento
 
     @Column(nullable = false)
     private String local;
 
     @Column(nullable = false)
-    private String data;
+    private LocalDate dataInicial;
+
+    private LocalDate dataFinal;
 
     @Column(nullable = false)
-    private String hora;
+    private LocalTime horaInicial;
+
+    private LocalTime horaFinal;
 
     @Column(nullable = false)
     private String descricao;

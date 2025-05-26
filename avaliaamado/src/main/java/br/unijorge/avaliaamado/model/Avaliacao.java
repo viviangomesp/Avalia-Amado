@@ -19,9 +19,8 @@ public class Avaliacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
-    private long ID_Avaliacao;
+    private long id;
 
-    @Column
     private String descricao;
 
     @Column(nullable = false)

@@ -14,4 +14,6 @@ public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
     List<Servico> findByLocal(String local);//Listando por local
 
+    
+
 }

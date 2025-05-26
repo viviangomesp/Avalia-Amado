@@ -1,5 +1,7 @@
 package br.unijorge.avaliaamado.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import br.unijorge.avaliaamado.enums.TipoServico;
@@ -24,14 +26,13 @@ public class Servico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID_Servico;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoServico tipo;
 
     @Enumerated(EnumType.STRING)
-    @Column
     private TipoServicoSaude tipoSaude;
 
     @Column(nullable = false)
@@ -41,10 +42,14 @@ public class Servico {
     private String local;
 
     @Column(nullable = false)
-    private String data;
+    private LocalDate dataInicial;
+
+    private LocalDate dataFinal;
 
     @Column(nullable = false)
-    private String hora;
+    private LocalTime horaInicial;
+
+    private LocalTime horaFinal;
 
     @OneToMany
     private List<Avaliacao> avaliacoes;
