@@ -47,6 +47,13 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    //tipo servico saude
+    public Servico buscarServicoPorTipo(String tipo) { // Método para buscar o serviço por tipo
+        return servicoRepository.findByTipo(tipo);
+    }
+
+    public Servico buscarServicoPorLocal(String local) { // Método para buscar o serviço por local
+        return servicoRepository.findbyLocal(local);
+    }
+
 
 }

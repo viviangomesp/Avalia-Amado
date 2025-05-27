@@ -45,8 +45,19 @@ public class EventoService {
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
 
+    public List<Evento> getAllEventos() { // Método para listar todos os eventos
+        return eventoRepository.findAll();
+    }
+
     public List<Evento> listarPorNotaDesc() { // Método para listar os eventos por nota decrescente
         return eventoRepository.findAllByOrderByNotaDesc();
     }
 
+    public List<Evento> listarPorLocal(String local) { // Método para listar os eventos por local
+        return eventoRepository.findByLocal(local);
+    }
+
+    public List<Evento> listarPorData(String data) { // Método para listar os eventos por data
+        return eventoRepository.findByData(data);
+    }
 }

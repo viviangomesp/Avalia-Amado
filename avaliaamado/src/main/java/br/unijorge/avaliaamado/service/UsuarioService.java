@@ -1,5 +1,7 @@
 package br.unijorge.avaliaamado.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.unijorge.avaliaamado.repository.UsuarioRepository;
@@ -34,9 +36,30 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
     }
 
-    public Usuario buscarUsuarioPorId(long id) { // Método para buscar o usuário por ID
+    public void atualizarUsuario(Usuario usuario) { // Método para atualizar o usuário
+        if (!usuarioRepository.existsById(usuario.getId())) {
+            throw new RuntimeException("Usuário não encontrado");
+        }
+        usuarioRepository.save(usuario);
+    }
+
+    public void deleteUsuario(long id) { // Método para deletar o usuário
+        if (!usuarioRepository.existsById(id)) {
+            throw new RuntimeException("Usuário não encontrado");
+        }
+        usuarioRepository.deleteById(id);
+    }
+
+    public boolean verificarEmailExistente(String email) { // Método para verificar se o email já existe
+        return usuarioRepository.existsByEmail(email);
+    }
+
+    public Usuario getUsuarioById(long id) { // Método para buscar o usuário por ID
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
+    public List<Usuario> getAllUsuarios() { // Método para listar todos os usuários
+        return usuarioRepository.findAll();
+    }
 }

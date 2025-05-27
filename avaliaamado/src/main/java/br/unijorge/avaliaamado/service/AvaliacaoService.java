@@ -24,7 +24,7 @@ public class AvaliacaoService {
     private ServicoService servicoService;
 
     public Avaliacao criarAvaliacaoEvento(Long eventoId, Long usuarioId, Avaliacao avaliacao) {
-        Evento evento = eventoService.getById(eventoId);// *
+        Evento evento = eventoService.getById(eventoId);
 
         if (evento.getDataFinal() != null) {
             if (evento.getDataFinal().isAfter(LocalDate.now())) {
@@ -63,7 +63,7 @@ public class AvaliacaoService {
         return avaliacaoRepository.save(avaliacao);
     }
 
-    public void deteleAvaliacao(Long id) {
+    public void deleteAvaliacao(Long id) {
         if (!avaliacaoRepository.existsById(id)) {
             throw new RuntimeException("Avaliação não encontrada");
         }
@@ -81,6 +81,18 @@ public class AvaliacaoService {
 
     public List<Avaliacao> getAvaliacoesPorEvento(long eventoId) {
         return avaliacaoRepository.findByEventoId(eventoId);
+    }
+
+    public List<Avaliacao> getAvaliacoesPorServico(long servicoId) {
+        return avaliacaoRepository.findByServicoId(servicoId);
+    }
+
+    public List<Avaliacao> getAvaliacoesPorUsuario(long usuarioId) {
+        return avaliacaoRepository.findByUsuarioId(usuarioId);
+    }
+
+    public List<Avaliacao> getAvaliacoesPorNota(int nota) {
+        return avaliacaoRepository.findByNotaGreaterThanEqual(nota);
     }
     
 }
