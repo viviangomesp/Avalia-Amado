@@ -6,18 +6,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@Repository
+@Repository//Contrato de persistência de dados
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
-    List<Avaliacao> findByEvento_Id(long id);//Listando por ID do evento
+    List<Avaliacao> findByEvento_Id(long id);//Lista avaliacoes por ID do evento
     
-    List<Avaliacao> findByUsuario_Id(long id);//Listando por ID do usuário
+    List<Avaliacao> findByUsuario_Id(long id);
 
-    List<Avaliacao> findByServico_Id(long id);//Listando por ID do serviço
+    List<Avaliacao> findByServico_Id(long id);
 
-    List<Avaliacao> findByNotaGreaterThanEqual(Double nota);//Listando por nota maior ou igual a x
+    List<Avaliacao> findByNotaGreaterThanEqual(Double nota);//Lista avaliacoes por nota maior ou igual a um valor específico
 
-    boolean existsByEvento_IdAndUsuario_Id(Long eventoId, Long usuarioId);
+    boolean existsByEvento_IdAndUsuario_Id(Long eventoId, Long usuarioId);//Valida se existe avaliação por ID do evento e ID do usuário
 
     boolean existsByServico_IdAndUsuario_Id(Long servicoId, Long usuarioId);
 

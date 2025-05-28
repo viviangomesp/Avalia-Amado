@@ -53,7 +53,7 @@ public class Servico {
 
     private LocalTime horaFinal;
 
-    @OneToMany
+    @OneToMany // Um serviço pode ter várias avaliações
     private List<Avaliacao> avaliacoes;
-
+    
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.unijorge.avaliaamado.model.Avaliacao;
 import br.unijorge.avaliaamado.model.Evento;
 import br.unijorge.avaliaamado.model.Servico;
+import br.unijorge.avaliaamado.model.Usuario;
 import br.unijorge.avaliaamado.repository.AvaliacaoRepository;
 
 @Service
@@ -23,28 +24,45 @@ public class AvaliacaoService {
     @Autowired
     private ServicoService servicoService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     public Avaliacao criarAvaliacaoEvento(Long eventoId, Long usuarioId, Avaliacao avaliacao) {
         Evento evento = eventoService.getById(eventoId);
+        Usuario usuario = usuarioService.getUsuarioById(usuarioId);
 
-        if (evento.getDataFinal() != null) {
-            if (evento.getDataFinal().isAfter(LocalDate.now())) {
+        if (evento == null){// Verifica se o evento existe
+            throw new RuntimeException("Evento não encontrado");
+        }
+
+        if (evento.getDataFinal() != null) {// Verifica se há data final
+            if (evento.getDataFinal().isAfter(LocalDate.now())) {// Compara a data final com a data atual
                 throw new RuntimeException("Avaliação só pode ser feita após o evento ser realizado");
             }
         } else {
-            if (evento.getDataInicial().isAfter(LocalDate.now())) {
+            if (evento.getDataInicial().isAfter(LocalDate.now())) {// Compara a data inicial com a data atual
                 throw new RuntimeException("Avaliação só pode ser feita após o evento ser realizado");
             }
         }
 
-        if (avaliacaoRepository.existsByEvento_IdAndUsuario_Id(eventoId, usuarioId)) {
+        if (avaliacaoRepository.existsByEvento_IdAndUsuario_Id(eventoId, usuarioId)) {// Verifica se o usuário já avaliou o evento
             throw new RuntimeException("Usuário já avaliou este evento");
         }
+
+        //Associando para garantir a integridade referencial
+        avaliacao.setEvento(evento);
+        avaliacao.setUsuario(usuario);
 
         return avaliacaoRepository.save(avaliacao);
     }
 
     public Avaliacao criarAvaliacaoServico(Long servicoId, Long usuarioId, Avaliacao avaliacao) {
         Servico servico = servicoService.getById(servicoId);
+        Usuario usuario = usuarioService.getUsuarioById(usuarioId);
+        
+        if (servico == null) {
+            throw new RuntimeException("Serviço não encontrado");
+        }
 
         if (servico.getDataFinal() != null) {
             if (servico.getDataFinal().isAfter(LocalDate.now())) {
@@ -59,6 +77,9 @@ public class AvaliacaoService {
         if (avaliacaoRepository.existsByServico_IdAndUsuario_Id(servicoId, usuarioId)) {
             throw new RuntimeException("Usuário já avaliou este serviço");
         }
+
+        avaliacao.setServico(servico);
+        avaliacao.setUsuario(usuario);
 
         return avaliacaoRepository.save(avaliacao);
     }

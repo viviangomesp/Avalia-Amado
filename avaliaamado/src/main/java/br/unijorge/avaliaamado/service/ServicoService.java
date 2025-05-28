@@ -15,11 +15,11 @@ public class ServicoService {
     @Autowired
     private ServicoRepository servicoRepository;
 
-    public Servico criarServico(Servico servico){//SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
+    public Servico criarServico(Servico servico){//TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
         return servicoRepository.save(servico);
     }
 
-    public Servico editarServico(long id, Servico servico) { // Método para editar o serviço
+    public Servico editarServico(long id, Servico servico) {
         Servico servicoExistente = servicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
         
@@ -36,20 +36,20 @@ public class ServicoService {
 
     }
     
-    public void deleteServico(long id) { // Método para deletar o serviço
+    public void deleteServico(long id) {
         servicoRepository.deleteById(id);
     }
 
-    public Servico buscarServicoPorId(long id) { // Método para buscar o serviço por ID
+    public Servico buscarServicoPorId(long id) {
         return servicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    public List<Servico> buscarPorNotaDesc() { // Método para listar serviços por nota decrescente
+    public List<Servico> buscarPorNotaDesc() {
         return servicoRepository.findAllByOrderByNotaDesc();
     }
 
-    public List<Servico> getAllServicos() { // Método para listar todos os serviços
+    public List<Servico> getAllServicos() {
         return servicoRepository.findAll();
     }
 
@@ -58,11 +58,17 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    public Servico buscarServicoPorTipo(TipoServico tipo) { // Método para buscar o serviço por tipo
+    public Servico buscarServicoPorTipo(TipoServico tipo) {
         return servicoRepository.findByTipo(tipo);
     }
 
-    public Servico buscarServicoPorLocal(String local) { // Método para buscar o serviço por local
+    public Servico buscarServicoPorLocal(String local) {
         return servicoRepository.findByLocal(local);
     }
+
+    public Double obterNotaMediaServico (Long servicoId){
+        Double media = servicoRepository.calcularMediaAvaliacoesPorServico(servicoId);
+        return media != null ? media : 0.0; // Retorna 0.0 se a média for nula
+    }
+    
 }

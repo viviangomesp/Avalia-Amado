@@ -15,14 +15,14 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public Evento criarEvento(Evento evento) { //SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
-        if (eventoRepository.findByNome(evento.getNome()) != null) { // Verifica se o evento já está cadastrado no banco de dados
+    public Evento criarEvento(Evento evento) { //TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
+        if (eventoRepository.findByNome(evento.getNome()) != null) { // Verifica se o evento já está cadastrado atraves do nome
             throw new RuntimeException("Evento já cadastrado");
         }
         return eventoRepository.save(evento);
     }
 
-    public Evento editarEvento(long id, Evento evento) { // Método para editar o evento
+    public Evento editarEvento(long id, Evento evento) {
         Evento eventoExistente = eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
         
@@ -37,28 +37,34 @@ public class EventoService {
         return eventoRepository.save(eventoExistente);
     }
 
-    public void deleteEvento(long id) { // Método para deletar o evento
+    public void deleteEvento(long id) {
         eventoRepository.deleteById(id);
     }
 
-    public Evento getById(long id) { // Método para buscar o evento por ID
+    public Evento getById(long id) {
         return eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
 
-    public List<Evento> getAllEventos() { // Método para listar todos os eventos
+    public List<Evento> getAllEventos() {
         return eventoRepository.findAll();
     }
 
-    public List<Evento> listarPorNotaDesc() { // Método para listar os eventos por nota decrescente
+    public List<Evento> listarPorNotaDesc() {
         return eventoRepository.findAllByOrderByNotaDesc();
     }
 
-    public List<Evento> listarPorLocal(String local) { // Método para listar os eventos por local
+    public List<Evento> listarPorLocal(String local) {
         return eventoRepository.findByLocal(local);
     }
 
-    public List<Evento> listarPorData(LocalDate data) { // Método para listar os eventos por data
+    public List<Evento> listarPorData(LocalDate data) {
         return eventoRepository.findByDataInicial(data);
     }
+
+    public Double obterNotaMediaEvento(Long eventoId) {// Obtém a média de avaliações de um evento
+        Double media = eventoRepository.calcularMediaAvaliacoesPorEvento(eventoId);
+        return media != null ? media : 0.0; // Retorna 0.0 se a média for nula
+    }
+    
 }

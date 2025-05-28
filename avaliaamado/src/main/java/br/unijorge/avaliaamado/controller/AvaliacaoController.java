@@ -33,40 +33,40 @@ public class AvaliacaoController {
     @Autowired
     private ServicoService servicoService;
 
-    @GetMapping("/{id}") //Listar avaliação por ID
+    @GetMapping("/{id}") //Lista uma avaliação por seu ID
     public ResponseEntity<Avaliacao> getAvaliacao(@PathVariable Long id) {
         Avaliacao avaliacao = avaliacaoService.getAvaliacao(id);
         return ResponseEntity.ok(avaliacao);
     }
 
-    @GetMapping("/all") //Listar todas as avaliações
+    @GetMapping("/all") //Lista todas as avaliações
     public ResponseEntity<List<Avaliacao>> getAllAvaliacoes() {
         return ResponseEntity.ok(avaliacaoService.getAllAvaliacoes());
     }
     
-    @GetMapping("/evento/{eventoId}") //Listar avaliações por ID do evento
+    @GetMapping("/evento/{eventoId}") //Lista avaliações por ID do evento
     public ResponseEntity<List<Avaliacao>> getAvaliacoesByEventoId(@PathVariable Long eventoId) {
         return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorEvento(eventoId));
     }
     
-    @GetMapping("/servico/{servicoId}") //Listar avaliações por ID do serviço
+    @GetMapping("/servico/{servicoId}") //Lista avaliações por ID do serviço
     public ResponseEntity<List<Avaliacao>> getAvaliacoesByServicoId(@PathVariable Long servicoId) {
         return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorServico(servicoId));
     }
 
-    @GetMapping("/usuario/{usuarioId}") //Listar avaliações por ID do usuário
+    @GetMapping("/usuario/{usuarioId}") //Lista todas as avaliações do usuário por seu ID
     public ResponseEntity<List<Avaliacao>> getAvaliacoesByUsuarioId(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorUsuario(usuarioId));
     }
 
-    @PostMapping("/servico/novaAvaliacao")
+    @PostMapping("/servico/{id}/novaAvaliacao") //Cria avaliação de um serviço
     public ResponseEntity<Avaliacao> criarAvaliacaoServico(@RequestParam Long servicoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         servicoService.getById(servicoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoServico(servicoId, usuarioId, avaliacao);
         return ResponseEntity.ok(novaAvaliacao);
     }
 
-    @PostMapping("/evento/novaAvaliacao")
+    @PostMapping("/evento/{id}/novaAvaliacao") // Cria avaliação de um evento
     public ResponseEntity<Avaliacao> criarAvaliacaoEvento(@RequestParam Long eventoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         eventoService.getById(eventoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoEvento(eventoId, usuarioId, avaliacao);
@@ -78,4 +78,5 @@ public class AvaliacaoController {
         avaliacaoService.deleteAvaliacao(id);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 public class Usuario {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false) //Campo não pode ser nulo
+    @Column(nullable = false)
     private String nome;
 
-    @Column(unique = true, nullable = false) //Campo não pode ser nulo e deve ser único
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)

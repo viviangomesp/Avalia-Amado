@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 public class Avaliacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String descricao;
 
     @Column(nullable = false)
-    private int nota;
+    private Double nota;
 
     @Column(nullable = false)
     private boolean isAnonimo;
@@ -34,11 +34,11 @@ public class Avaliacao {
     private Usuario usuario;
 
     @ManyToOne //Um evento pode ter várias avaliações
-    @JoinColumn(name = "ID_Evento") //Chave estrangeira para a tabela Evento
+    @JoinColumn(name = "id_evento") //Chave estrangeira para a tabela Evento
     private Evento evento;
 
     @ManyToOne //Um serviço pode ter várias avaliações
-    @JoinColumn(name = "ID_Servico") //Chave estrangeira para a tabela Servico
+    @JoinColumn(name = "id_servico") //Chave estrangeira para a tabela Servico
     private Servico servico;
 
 }

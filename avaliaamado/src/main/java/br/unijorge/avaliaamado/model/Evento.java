@@ -14,20 +14,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity //Classe que representa a tabela Evento no banco de dados
-@Data //Classe que gera os métodos getters e setters automaticamente
-@NoArgsConstructor //Classe que gera o construtor padrão automaticamente
-@AllArgsConstructor //Classe que gera o construtor com todos os parâmetros automaticamente
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Evento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Geração automática do ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false) //Campo não pode ser nulo
+    @Column(nullable = false)
     private String nome;
 
-    private Double nota; //Média das avaliações do evento
+    private Double nota;
 
     @Column(nullable = false)
     private String local;

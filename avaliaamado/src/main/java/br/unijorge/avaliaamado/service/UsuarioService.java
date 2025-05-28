@@ -15,28 +15,27 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public void criarUsuario(Usuario usuario) {
-        //TODO: Resolver a validação e testar no Insomnia
-        // if (usuarioRepository.findByEmail(usuario.getEmail()) != null) { // Verifica se o email já está cadastrado no banco de dados
-        //     throw new RuntimeException("Email já cadastrado");
-        // }
+         if (usuarioRepository.existsByEmail(usuario.getEmail())) { // Verifica se o email já está cadastrado
+             throw new RuntimeException("Email já cadastrado");
+        }
         
-        // if (isValidarEmail(usuario.getEmail())) { // Verifica se o email é válido
-        //     throw new RuntimeException("Email inválido");
-        // }
+         if (!isValidarEmail(usuario.getEmail())) {
+             throw new RuntimeException("Email inválido");
+        }
 
         usuarioRepository.save(usuario);
     }
   
-    //private boolean isValidarEmail(String email){ // Método para validar o email por expressões regulares
-    //    return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
-    //}
+    private boolean isValidarEmail(String email){ // Valida o email por expressões regulares
+        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
 
-    public Usuario login(String email, String senha){// Método para fazer login do usuário
+    public Usuario login(String email, String senha){// Realizar login do usuário
         return usuarioRepository.findByEmailAndSenha(email, senha)
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
     }
 
-    public void atualizarUsuario(Long id, Usuario usuario) { // Método para atualizar o usuário
+    public void atualizarUsuario(Long id, Usuario usuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         
@@ -47,23 +46,20 @@ public class UsuarioService {
         usuarioRepository.save(usuarioExistente);
     }
 
-    public void deleteUsuario(long id) { // Método para deletar o usuário
+    public void deleteUsuario(long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não encontrado");
         }
         usuarioRepository.deleteById(id);
     }
 
-    public boolean verificarEmailExistente(String email) { // Método para verificar se o email já existe
-        return usuarioRepository.existsByEmail(email);
-    }
-
-    public Usuario getUsuarioById(long id) { // Método para buscar o usuário por ID
+    public Usuario getUsuarioById(long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    public List<Usuario> getAllUsuarios() { // Método para listar todos os usuários
+    public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
+    
 }
