@@ -15,32 +15,36 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public void criarUsuario(Usuario usuario) {
+        //TODO: Resolver a validação e testar no Insomnia
+        // if (usuarioRepository.findByEmail(usuario.getEmail()) != null) { // Verifica se o email já está cadastrado no banco de dados
+        //     throw new RuntimeException("Email já cadastrado");
+        // }
         
-        if (usuarioRepository.findByEmail(usuario.getEmail()) != null) { // Verifica se o email já está cadastrado no banco de dados
-            throw new RuntimeException("Email já cadastrado");
-        }
-        
-        if (isValidarEmail(usuario.getEmail())) { // Verifica se o email é válido
-            throw new RuntimeException("Email inválido");
-        }
+        // if (isValidarEmail(usuario.getEmail())) { // Verifica se o email é válido
+        //     throw new RuntimeException("Email inválido");
+        // }
 
         usuarioRepository.save(usuario);
     }
   
-    private boolean isValidarEmail(String email){ // Método para validar o email por expressões regulares
-        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
-    }
+    //private boolean isValidarEmail(String email){ // Método para validar o email por expressões regulares
+    //    return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    //}
 
     public Usuario login(String email, String senha){// Método para fazer login do usuário
         return usuarioRepository.findByEmailAndSenha(email, senha)
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
     }
 
-    public void atualizarUsuario(Usuario usuario) { // Método para atualizar o usuário
-        if (!usuarioRepository.existsById(usuario.getId())) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
-        usuarioRepository.save(usuario);
+    public void atualizarUsuario(Long id, Usuario usuario) { // Método para atualizar o usuário
+        Usuario usuarioExistente = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        
+        usuarioExistente.setNome(usuario.getNome());
+        usuarioExistente.setEmail(usuario.getEmail());
+        usuarioExistente.setSenha(usuario.getSenha());
+        
+        usuarioRepository.save(usuarioExistente);
     }
 
     public void deleteUsuario(long id) { // Método para deletar o usuário

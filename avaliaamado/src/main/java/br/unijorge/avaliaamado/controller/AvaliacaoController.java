@@ -59,21 +59,21 @@ public class AvaliacaoController {
         return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorUsuario(usuarioId));
     }
 
-    @PostMapping("/servico")//ou /servico/nova-avaliacao
-    public ResponseEntity<Avaliacao> criarAvaliacaoServico (@RequestParam Long servicoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
+    @PostMapping("/servico/novaAvaliacao")
+    public ResponseEntity<Avaliacao> criarAvaliacaoServico(@RequestParam Long servicoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         servicoService.getById(servicoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoServico(servicoId, usuarioId, avaliacao);
         return ResponseEntity.ok(novaAvaliacao);
     }
 
-    @PostMapping("/evento") //ou /evento/nova-avaliacao
+    @PostMapping("/evento/novaAvaliacao")
     public ResponseEntity<Avaliacao> criarAvaliacaoEvento(@RequestParam Long eventoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         eventoService.getById(eventoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoEvento(eventoId, usuarioId, avaliacao);
         return ResponseEntity.ok(novaAvaliacao);
     }
 
-    @DeleteMapping("/{id}") //Deletar avaliação por ID
+    @DeleteMapping("/delete/{id}") //Deletar avaliação por ID
     public ResponseEntity<Void> deleteAvaliacao(@PathVariable Long id) {
         avaliacaoService.deleteAvaliacao(id);
         return ResponseEntity.noContent().build();

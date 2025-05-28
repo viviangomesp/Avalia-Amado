@@ -27,7 +27,7 @@ public class Evento {
     @Column(nullable = false) //Campo não pode ser nulo
     private String nome;
 
-    private int nota; //Média das avaliações do evento
+    private Double nota; //Média das avaliações do evento
 
     @Column(nullable = false)
     private String local;

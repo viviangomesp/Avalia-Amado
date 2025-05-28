@@ -4,6 +4,7 @@ import br.unijorge.avaliaamado.model.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     List<Evento> findByLocal(String local);//Listando por local
 
-    List<Evento> findByData(String data);//Listando por data
+    List<Evento> findByDataInicial(LocalDate dataInicial);//Listando por data
 
     List<Evento> findAllByOrderByNotaDesc();
 

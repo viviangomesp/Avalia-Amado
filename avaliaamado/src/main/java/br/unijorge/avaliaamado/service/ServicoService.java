@@ -1,8 +1,11 @@
 package br.unijorge.avaliaamado.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.unijorge.avaliaamado.enums.TipoServico;
 import br.unijorge.avaliaamado.model.Servico;
 import br.unijorge.avaliaamado.repository.ServicoRepository;
 
@@ -42,18 +45,24 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
+    public List<Servico> buscarPorNotaDesc() { // Método para listar serviços por nota decrescente
+        return servicoRepository.findAllByOrderByNotaDesc();
+    }
+
+    public List<Servico> getAllServicos() { // Método para listar todos os serviços
+        return servicoRepository.findAll();
+    }
+
     public Servico getById(long id) {
         return servicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    public Servico buscarServicoPorTipo(String tipo) { // Método para buscar o serviço por tipo
+    public Servico buscarServicoPorTipo(TipoServico tipo) { // Método para buscar o serviço por tipo
         return servicoRepository.findByTipo(tipo);
     }
 
     public Servico buscarServicoPorLocal(String local) { // Método para buscar o serviço por local
-        return servicoRepository.findbyLocal(local);
+        return servicoRepository.findByLocal(local);
     }
-
-
 }

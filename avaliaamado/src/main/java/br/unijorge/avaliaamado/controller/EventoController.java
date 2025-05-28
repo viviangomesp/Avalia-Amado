@@ -1,5 +1,6 @@
 package br.unijorge.avaliaamado.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +30,20 @@ public class EventoController {
         return ResponseEntity.ok(evento);
     }
 
-    @GetMapping("/listar-por-nota")
+    @GetMapping("/nota")
     public ResponseEntity<List<Evento>> listarEventosPorNotaDesc() {
         List<Evento> eventos = eventoService.listarPorNotaDesc();
         return ResponseEntity.ok(eventos);
     }
 
-    @GetMapping("/listar-por-local")
+    @GetMapping("/local")
     public ResponseEntity<List<Evento>> listarEventosPorLocal(@PathVariable String local) {
         List<Evento> eventos = eventoService.listarPorLocal(local);
         return ResponseEntity.ok(eventos);
     }
 
-    @GetMapping("/listar-por-data")
-    public ResponseEntity<List<Evento>> listarEventosPorData(@PathVariable String data) {
+    @GetMapping("/data")
+    public ResponseEntity<List<Evento>> listarEventosPorData(@PathVariable LocalDate data) {
         List<Evento> eventos = eventoService.listarPorData(data);
         return ResponseEntity.ok(eventos);
     }
@@ -52,13 +53,13 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.getAllEventos());
     }
 
-    @PostMapping("/novo-evento")
+    @PostMapping("/novoEvento")
     public ResponseEntity<Evento> criarEvento(@RequestBody Evento evento) {
         Evento novoEvento = eventoService.criarEvento(evento);
         return ResponseEntity.ok(novoEvento);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable Long id) {
         eventoService.deleteEvento(id);
         return ResponseEntity.noContent().build();

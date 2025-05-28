@@ -1,5 +1,6 @@
 package br.unijorge.avaliaamado.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class EventoService {
         return eventoRepository.findByLocal(local);
     }
 
-    public List<Evento> listarPorData(String data) { // Método para listar os eventos por data
-        return eventoRepository.findByData(data);
+    public List<Evento> listarPorData(LocalDate data) { // Método para listar os eventos por data
+        return eventoRepository.findByDataInicial(data);
     }
 }

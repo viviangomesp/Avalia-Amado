@@ -36,7 +36,7 @@ public class AvaliacaoService {
             }
         }
 
-        if (avaliacaoRepository.existsByEventoIdAndUsuarioId(eventoId, usuarioId)) {
+        if (avaliacaoRepository.existsByEvento_IdAndUsuario_Id(eventoId, usuarioId)) {
             throw new RuntimeException("Usuário já avaliou este evento");
         }
 
@@ -56,7 +56,7 @@ public class AvaliacaoService {
             }
         }
 
-        if (avaliacaoRepository.existsByServicoIdAndUsuarioId(servicoId, usuarioId)) {
+        if (avaliacaoRepository.existsByServico_IdAndUsuario_Id(servicoId, usuarioId)) {
             throw new RuntimeException("Usuário já avaliou este serviço");
         }
 
@@ -80,18 +80,18 @@ public class AvaliacaoService {
     }
 
     public List<Avaliacao> getAvaliacoesPorEvento(long eventoId) {
-        return avaliacaoRepository.findByEventoId(eventoId);
+        return avaliacaoRepository.findByEvento_Id(eventoId);
     }
 
     public List<Avaliacao> getAvaliacoesPorServico(long servicoId) {
-        return avaliacaoRepository.findByServicoId(servicoId);
+        return avaliacaoRepository.findByServico_Id(servicoId);
     }
 
     public List<Avaliacao> getAvaliacoesPorUsuario(long usuarioId) {
-        return avaliacaoRepository.findByUsuarioId(usuarioId);
+        return avaliacaoRepository.findByUsuario_Id(usuarioId);
     }
 
-    public List<Avaliacao> getAvaliacoesPorNota(int nota) {
+    public List<Avaliacao> getAvaliacoesPorNota(Double nota) {
         return avaliacaoRepository.findByNotaGreaterThanEqual(nota);
     }
     

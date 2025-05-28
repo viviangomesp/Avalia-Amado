@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
-    List<Avaliacao> findByEventoId(long id);//Listando por ID do evento
+    List<Avaliacao> findByEvento_Id(long id);//Listando por ID do evento
     
-    List<Avaliacao> findByUsuarioId(long id);//Listando por ID do usuário
+    List<Avaliacao> findByUsuario_Id(long id);//Listando por ID do usuário
 
-    List<Avaliacao> findByServicoId(long id);//Listando por ID do serviço
+    List<Avaliacao> findByServico_Id(long id);//Listando por ID do serviço
 
-    List<Avaliacao> findByNotaGreaterThanEqual(int nota);//Listando por nota maior ou igual a x
+    List<Avaliacao> findByNotaGreaterThanEqual(Double nota);//Listando por nota maior ou igual a x
 
-    boolean existsByEventoIdAndUsuarioId(Long eventoId, Long usuarioId);
+    boolean existsByEvento_IdAndUsuario_Id(Long eventoId, Long usuarioId);
 
-    boolean existsByServicoIdAndUsuarioId(Long servicoId, Long usuarioId);
+    boolean existsByServico_IdAndUsuario_Id(Long servicoId, Long usuarioId);
 
 }

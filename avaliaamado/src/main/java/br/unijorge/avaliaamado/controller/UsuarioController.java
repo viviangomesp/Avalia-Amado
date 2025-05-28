@@ -30,13 +30,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUsuarioPorId(Long id) {
+    public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioService.getUsuarioById(id);
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping("/novo-usuario")
-    public ResponseEntity<Usuario> criarUsuario (@RequestBody Usuario usuario){
+    @PostMapping("/novoUsuario")
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
         try {
             usuarioService.criarUsuario(usuario);
             return ResponseEntity.ok(usuario);
@@ -54,17 +54,13 @@ public class UsuarioController {
             return ResponseEntity.status(401).body(null);
         }
     }
-/* 
+ 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> editarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        try {
-            Usuario usuarioAtualizado = usuarioService.atualizarUsuario(usuario); 
-            return ResponseEntity.ok(usuarioAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+    public ResponseEntity<Usuario> editarUsuario(@RequestParam Long id, @RequestBody Usuario usuario) {
+        Usuario usuarioExistente = usuarioService.getUsuarioById(id);
+        return ResponseEntity.ok(usuarioExistente);
     }
-*/
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         try {

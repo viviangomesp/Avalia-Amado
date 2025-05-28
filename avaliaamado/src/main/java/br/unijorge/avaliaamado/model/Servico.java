@@ -41,6 +41,8 @@ public class Servico {
     @Column(nullable = false)
     private String local;
 
+    private Double nota;
+
     @Column(nullable = false)
     private LocalDate dataInicial;
 

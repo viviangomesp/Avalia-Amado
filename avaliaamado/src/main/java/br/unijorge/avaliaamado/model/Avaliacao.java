@@ -37,4 +37,8 @@ public class Avaliacao {
     @JoinColumn(name = "ID_Evento") //Chave estrangeira para a tabela Evento
     private Evento evento;
 
+    @ManyToOne //Um serviço pode ter várias avaliações
+    @JoinColumn(name = "ID_Servico") //Chave estrangeira para a tabela Servico
+    private Servico servico;
+
 }
