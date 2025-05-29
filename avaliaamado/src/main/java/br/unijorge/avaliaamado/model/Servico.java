@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.unijorge.avaliaamado.enums.TipoServico;
 import br.unijorge.avaliaamado.enums.TipoServicoSaude;
 import jakarta.persistence.Column;
@@ -53,7 +55,8 @@ public class Servico {
 
     private LocalTime horaFinal;
 
-    @OneToMany // Um serviço pode ter várias avaliações
+    @OneToMany(mappedBy = "servico")// Um serviço pode ter várias avaliações
+    @JsonBackReference
     private List<Avaliacao> avaliacoes;
     
 }

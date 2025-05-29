@@ -16,14 +16,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
    
-    Servico findByTipo(TipoServico tipo);//Buscando por tipo
-
-    Servico findByLocal(String local);
-
-    List<Servico> findAllByOrderByNotaDesc(); //Listando por nota em ordem decrescente 
+    List<Servico> findByLocal(String local);
+    
+    List<Servico> findByTipo(TipoServico tipo);
+    
+    //List<Servico> findAllByOrderByNotaDesc(); //Lista por nota em ordem decrescente 
 
     //Método para calcular a média das avaliações de um serviço específico
     @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.servico.id = :servicoId")
     Double calcularMediaAvaliacoesPorServico(@Param ("servicoId")Long servicoId);
 
+    @Query("SELECT e FROM Servico e JOIN e.avaliacoes a GROUP BY e.id ORDER BY AVG(a.nota) DESC")
+    List<Servico> findAllByOrderByMediaAvaliacoesDesc();
 }

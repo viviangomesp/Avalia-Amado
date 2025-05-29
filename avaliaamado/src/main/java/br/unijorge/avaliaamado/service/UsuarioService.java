@@ -35,15 +35,15 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
     }
 
-    public void atualizarUsuario(Long id, Usuario usuario) {
+    public Usuario atualizarUsuario(long id, Usuario usuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        
+
         usuarioExistente.setNome(usuario.getNome());
         usuarioExistente.setEmail(usuario.getEmail());
         usuarioExistente.setSenha(usuario.getSenha());
-        
-        usuarioRepository.save(usuarioExistente);
+
+        return usuarioRepository.save(usuarioExistente);
     }
 
     public void deleteUsuario(long id) {

@@ -45,10 +45,6 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    public List<Servico> buscarPorNotaDesc() {
-        return servicoRepository.findAllByOrderByNotaDesc();
-    }
-
     public List<Servico> getAllServicos() {
         return servicoRepository.findAll();
     }
@@ -58,11 +54,15 @@ public class ServicoService {
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
     }
 
-    public Servico buscarServicoPorTipo(TipoServico tipo) {
+    public List<Servico> listarPorNotaDesc() {
+        return servicoRepository.findAllByOrderByMediaAvaliacoesDesc();
+    }
+
+    public List<Servico> buscarServicoPorTipo(TipoServico tipo) {
         return servicoRepository.findByTipo(tipo);
     }
 
-    public Servico buscarServicoPorLocal(String local) {
+    public List<Servico> listarPorLocal(String local) {
         return servicoRepository.findByLocal(local);
     }
 

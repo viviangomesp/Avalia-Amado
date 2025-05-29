@@ -59,14 +59,14 @@ public class AvaliacaoController {
         return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorUsuario(usuarioId));
     }
 
-    @PostMapping("/servico/{id}/novaAvaliacao") //Cria avaliação de um serviço
+    @PostMapping("/servico/{servicoId}/novaAvaliacao") //Cria avaliação de um serviço
     public ResponseEntity<Avaliacao> criarAvaliacaoServico(@RequestParam Long servicoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         servicoService.getById(servicoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoServico(servicoId, usuarioId, avaliacao);
         return ResponseEntity.ok(novaAvaliacao);
     }
 
-    @PostMapping("/evento/{id}/novaAvaliacao") // Cria avaliação de um evento
+    @PostMapping("/evento/{eventoId}/novaAvaliacao") // Cria avaliação de um evento
     public ResponseEntity<Avaliacao> criarAvaliacaoEvento(@RequestParam Long eventoId, @RequestParam Long usuarioId, @RequestBody Avaliacao avaliacao) {
         eventoService.getById(eventoId);
         Avaliacao novaAvaliacao = avaliacaoService.criarAvaliacaoEvento(eventoId, usuarioId, avaliacao);

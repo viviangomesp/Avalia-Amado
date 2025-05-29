@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.unijorge.avaliaamado.DTO.LoginRequest;
 import br.unijorge.avaliaamado.model.Usuario;
 import br.unijorge.avaliaamado.service.UsuarioService;
 
@@ -46,22 +46,22 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> loginUsuario (@RequestParam String email, @RequestParam String senha){
+    public ResponseEntity<Usuario> loginUsuario (@RequestBody LoginRequest loginRequest) {
         try {
-            Usuario usuario = usuarioService.login(email, senha);
+            Usuario usuario = usuarioService.login(loginRequest.getEmail(), loginRequest.getSenha());
             return ResponseEntity.ok(usuario);
         } catch (Exception e) {
             return ResponseEntity.status(401).body(null);
         }
     }
  
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> editarUsuario(@RequestParam Long id, @RequestBody Usuario usuario) {
-        Usuario usuarioExistente = usuarioService.getUsuarioById(id);
-        return ResponseEntity.ok(usuarioExistente);
+    @PutMapping("/editarUsuario/{id}")
+    public ResponseEntity<Usuario> editarUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
+        Usuario usuarioAtualizado = usuarioService.atualizarUsuario(id, usuario);
+        return ResponseEntity.ok(usuarioAtualizado);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         try {
             usuarioService.deleteUsuario(id);

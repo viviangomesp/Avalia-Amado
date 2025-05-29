@@ -30,19 +30,13 @@ public class EventoController {
         return ResponseEntity.ok(evento);
     }
 
-    @GetMapping("/porNota") // Lista eventos por nota em ordem decrescente
-    public ResponseEntity<List<Evento>> listarEventosPorNotaDesc() {
-        List<Evento> eventos = eventoService.listarPorNotaDesc();
-        return ResponseEntity.ok(eventos);
-    }
-
-    @GetMapping("/porLocal") // Lista eventos por local
+    @GetMapping("/porLocal/{local}") // Lista eventos por local
     public ResponseEntity<List<Evento>> listarEventosPorLocal(@PathVariable String local) {
         List<Evento> eventos = eventoService.listarPorLocal(local);
         return ResponseEntity.ok(eventos);
     }
 
-    @GetMapping("/porData") // Lista eventos por data
+    @GetMapping("/porData/{data}") // Lista eventos por data
     public ResponseEntity<List<Evento>> listarEventosPorData(@PathVariable LocalDate data) {
         List<Evento> eventos = eventoService.listarPorData(data);
         return ResponseEntity.ok(eventos);
@@ -53,10 +47,10 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.getAllEventos());
     }
 
-    @GetMapping("/notaMedia/{id}")// Obtém a média das notas de um evento por ID
-    public ResponseEntity<Double> obterMediaNota(@PathVariable Long id) {
-        Double mediaNota = eventoService.obterNotaMediaEvento(id);
-        return ResponseEntity.ok(mediaNota);
+    @GetMapping("/notaMediaDesc")// Lista eventos por média de nota em ordem decrescente
+    public ResponseEntity<List<Evento>> listarEventosPorMediaNotaDesc() {
+        List<Evento> eventos = eventoService.listarPorNotaDesc();
+        return ResponseEntity.ok(eventos);
     }
 
     @PostMapping("/novoEvento") // Cria um novo evento  TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO

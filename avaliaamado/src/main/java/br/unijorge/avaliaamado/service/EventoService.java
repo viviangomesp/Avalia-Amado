@@ -51,7 +51,7 @@ public class EventoService {
     }
 
     public List<Evento> listarPorNotaDesc() {
-        return eventoRepository.findAllByOrderByNotaDesc();
+        return eventoRepository.findAllByOrderByMediaAvaliacoesDesc();
     }
 
     public List<Evento> listarPorLocal(String local) {
@@ -59,7 +59,7 @@ public class EventoService {
     }
 
     public List<Evento> listarPorData(LocalDate data) {
-        return eventoRepository.findByDataInicial(data);
+        return eventoRepository.findByDataInicialAfter(data);
     }
 
     public Double obterNotaMediaEvento(Long eventoId) {// Obtém a média de avaliações de um evento

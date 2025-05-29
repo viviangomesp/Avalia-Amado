@@ -20,14 +20,16 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     List<Evento> findByLocal(String local);//Lista eventos por local
 
-    List<Evento> findByDataInicial(LocalDate dataInicial);
-
-    List<Evento> findAllByOrderByNotaDesc();
+    List<Evento> findByDataInicialAfter(LocalDate dataInicial);
 
     Optional<Evento> findById(long id); //Busca evento por ID
 
     //Método para calcular a média das avaliações de um evento específico
     @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.evento.id = :eventoId")
     Double calcularMediaAvaliacoesPorEvento(@Param ("eventoId")Long eventoId);
+
+    //Lista eventos por nota de avaliações em ordem decrescente
+    @Query("SELECT e FROM Evento e JOIN e.avaliacoes a GROUP BY e.id ORDER BY AVG(a.nota) DESC")
+    List<Evento> findAllByOrderByMediaAvaliacoesDesc();
 
 }

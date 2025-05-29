@@ -31,27 +31,21 @@ public class ServicoController {
     }
 
     @GetMapping("/porTipo") //Lista serviços por tipo
-    public ResponseEntity<Servico> listarServicoPorTipo(@RequestParam TipoServico tipo){
-        Servico servico = servicoService.buscarServicoPorTipo(tipo);
-        return ResponseEntity.ok(servico);
-    }
-
-    @GetMapping("/porLocal") // Lista serviços por local
-    public ResponseEntity<Servico> listarServicoPorLocal(@RequestParam String local) {
-        Servico servico = servicoService.buscarServicoPorLocal(local);
-        return ResponseEntity.ok(servico);
-    }
-
-    @GetMapping("/porNota") // Lista serviços por nota em ordem decrescente
-    public ResponseEntity<List<Servico>> listarServicosPorNotaDesc() {
-        List<Servico> servicos = servicoService.buscarPorNotaDesc();
+    public ResponseEntity<List<Servico>> listarServicoPorTipo(@RequestParam TipoServico tipo) {
+        List<Servico> servicos = servicoService.buscarServicoPorTipo(tipo);
         return ResponseEntity.ok(servicos);
     }
 
-    @GetMapping("/notaMedia/{id}") // Obtém a média das notas de um serviço por ID
-    public ResponseEntity<Double> obterMediaNota(@PathVariable Long id) {
-        Double mediaNota = servicoService.obterNotaMediaServico(id);
-        return ResponseEntity.ok(mediaNota);
+    @GetMapping("/porLocal/{local}") // Lista serviços por local
+    public ResponseEntity<List<Servico>> listarServicoPorLocal(@PathVariable String local) {
+        List<Servico> servicos = servicoService.listarPorLocal(local);
+        return ResponseEntity.ok(servicos);
+    }
+
+    @GetMapping("/notaMediaDesc") 
+    public ResponseEntity<List<Servico>> listarServicosPorMediaNotaDesc() {
+        List<Servico> servicos = servicoService.listarPorNotaDesc();
+        return ResponseEntity.ok(servicos);
     }
 
     @PostMapping("/novoServico") // Cria um novo serviço TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
@@ -60,14 +54,14 @@ public class ServicoController {
         return ResponseEntity.ok(novoServico);
     }
 
-    @PutMapping("/editarServico") // Edita um serviço existente SOMENTE ADMINISTRADOR PODE EDITAR SERVIÇO
-    public ResponseEntity<Servico> editarServico(@RequestParam long id, @RequestBody Servico servico) {
+    @PutMapping("/editarServico/{id}") // Edita um serviço existente SOMENTE ADMINISTRADOR PODE EDITAR SERVIÇO
+    public ResponseEntity<Servico> editarServico(@PathVariable long id, @RequestBody Servico servico) {
         Servico servicoEditado = servicoService.editarServico(id, servico);
         return ResponseEntity.ok(servicoEditado);
     }
 
     @DeleteMapping("/delete/{id}") // Exclui um serviço por seu ID
-    public ResponseEntity<Void> deleteServico(@RequestParam long id) {
+    public ResponseEntity<Void> deleteServico(@PathVariable long id) {
         servicoService.deleteServico(id);
         return ResponseEntity.noContent().build();
     }
