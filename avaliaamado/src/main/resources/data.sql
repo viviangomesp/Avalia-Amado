@@ -1,9 +1,10 @@
 -- USUARIOS
-INSERT INTO usuario (nome, email, senha) VALUES 
-('Alice Souza', 'alice@unijorge.edu.br', 'senha123'),
-('Bruno Lima', 'bruno@unijorge.edu.br', 'abc123'),
-('Carla Mendes', 'carla@unijorge.edu.br', 'qwerty'),
-('Diego Santos', 'diego@unijorge.edu.br', 'pass456');
+INSERT INTO usuario (nome, email, senha, role) VALUES 
+('Alice Souza', 'alice@unijorge.edu.br', 'senha123',''),
+('Bruno Lima', 'bruno@unijorge.edu.br', 'abc123',''),
+('Carla Mendes', 'carla@unijorge.edu.br', 'qwerty',''),
+('Diego Santos', 'diego@unijorge.edu.br', 'pass456',''),
+('Administrador', 'admin@unijorge.edu.br','admin','ADMIN');
 
 -- EVENTOS
 INSERT INTO evento (nome, nota, local, data_inicial, data_final, hora_inicial, hora_final, descricao) VALUES 

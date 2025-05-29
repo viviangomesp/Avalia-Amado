@@ -31,7 +31,9 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @OneToMany //Um usuário pode ter várias avaliações
+    private String role; // ADMIN/USER
+
+    @OneToMany // Um usuário pode ter várias avaliações
     private List<Avaliacao> avaliacoes;
 
 }

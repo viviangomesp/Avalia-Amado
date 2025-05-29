@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import br.unijorge.avaliaamado.model.Evento;
 import br.unijorge.avaliaamado.repository.EventoRepository;
+import br.unijorge.avaliaamado.repository.UsuarioRepository;
+import br.unijorge.avaliaamado.model.Usuario;
 
 @Service
 public class EventoService {
@@ -15,7 +17,22 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    public Evento criarEvento(Evento evento) { //TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Evento criarEvento(Evento evento, Long usuarioId) { //TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        
+        String role = usuario.getRole();        
+        
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+        
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem criar eventos");
+        }
+
         if (eventoRepository.findByNome(evento.getNome()) != null) { // Verifica se o evento já está cadastrado atraves do nome
             throw new RuntimeException("Evento já cadastrado");
         }

@@ -2,6 +2,7 @@ package br.unijorge.avaliaamado.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unijorge.avaliaamado.model.Evento;
@@ -54,9 +56,13 @@ public class EventoController {
     }
 
     @PostMapping("/novoEvento") // Cria um novo evento  TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
-    public ResponseEntity<Evento> criarEvento(@RequestBody Evento evento) {
-        Evento novoEvento = eventoService.criarEvento(evento);
-        return ResponseEntity.ok(novoEvento);
+    public ResponseEntity<?> criarEvento(@RequestBody Evento evento, @RequestParam Long usuarioId) {
+        try{
+            Evento novoEvento = eventoService.criarEvento(evento, usuarioId);
+            return ResponseEntity.ok(novoEvento);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage())); // Retorna erro se não for administrador ou evento já cadastrado
+        }
     }
 
     @DeleteMapping("/delete/{id}") // Exclui um evento por seu ID

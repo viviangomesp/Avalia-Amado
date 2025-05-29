@@ -1,6 +1,7 @@
 package br.unijorge.avaliaamado.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,9 +50,13 @@ public class ServicoController {
     }
 
     @PostMapping("/novoServico") // Cria um novo serviço TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
-    public ResponseEntity<Servico> criarServico (@RequestBody Servico servico){
-        Servico novoServico = servicoService.criarServico(servico);
-        return ResponseEntity.ok(novoServico);
+    public ResponseEntity<?> criarServico(@RequestBody Servico servico, @RequestParam Long usuarioId) {
+        try {
+            Servico novoServico = servicoService.criarServico(servico, usuarioId);
+            return ResponseEntity.ok(novoServico);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
     }
 
     @PutMapping("/editarServico/{id}") // Edita um serviço existente SOMENTE ADMINISTRADOR PODE EDITAR SERVIÇO

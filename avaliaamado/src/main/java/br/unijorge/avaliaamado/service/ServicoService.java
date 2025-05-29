@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import br.unijorge.avaliaamado.enums.TipoServico;
 import br.unijorge.avaliaamado.model.Servico;
+import br.unijorge.avaliaamado.model.Usuario;
 import br.unijorge.avaliaamado.repository.ServicoRepository;
+import br.unijorge.avaliaamado.repository.UsuarioRepository;
 
 @Service
 public class ServicoService {
@@ -15,7 +17,21 @@ public class ServicoService {
     @Autowired
     private ServicoRepository servicoRepository;
 
-    public Servico criarServico(Servico servico){//TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Servico criarServico(Servico servico, Long usuarioId){//TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        
+        String role = usuario.getRole();        
+        
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+        
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem criar eventos");
+        }
         return servicoRepository.save(servico);
     }
 
