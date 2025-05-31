@@ -1,0 +1,33 @@
+.form{
+    width: 100%;
+}
+
+.senha_info{
+    font-weight: bold;
+    font-size: 0.9em;
+    margin: 0.5em 0.2em;
+}
+
+.botao{
+    display: flex;
+    justify-content: center;
+    background-color: #fcbfb7;
+    color: #0d1321;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 1em;
+}
+
+.botao:hover{
+    background-color:cornflowerblue;
+}
+
+.botao_div{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+}

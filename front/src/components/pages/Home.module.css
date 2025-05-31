@@ -1,0 +1,29 @@
+.container {
+    position: absolute;
+    top: 9em;
+    right: 2em;;
+    display: flex;
+    height: fit-content;
+    flex-direction: row;
+    gap: 1em;
+    list-style-type: none;
+}
+
+.cadastro {  
+    position: static;
+    background: #0d1321;
+    color: #fff;
+    padding: 0.7em 1.5em;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.cadastro:hover {
+    background:#fcbfb7;
+    color:#0d1321 ;
+}
+

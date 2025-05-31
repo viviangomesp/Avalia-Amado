@@ -1,0 +1,45 @@
+.novocadastro_container{
+    width: 450px;
+    margin: 2em auto; 
+    padding: 1em 2em; 
+    background: #0d1321 ;        
+    border: 1.5px solid #fcbfb7;     
+    border-radius: 25px;            
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.521); 
+    color: #fff; 
+    
+}
+
+.novocadastro_container h1{
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.ja_cadastrado{
+    text-align: center;
+    margin-top: 1em;
+}
+.ja_cadastrado a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.ja_cadastrado a:hover{
+    color: #fcbfb7;
+}
+/*Animação de Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 0.8s ease;
+}
+
