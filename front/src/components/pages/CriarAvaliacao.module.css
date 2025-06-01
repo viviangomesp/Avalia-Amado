@@ -16,7 +16,7 @@
     font-size: 2.5em;      
     font-weight: 200; 
 }
-/*Animação de Fade In */
+
 @keyframes fadeIn {
     from {
         opacity: 0;

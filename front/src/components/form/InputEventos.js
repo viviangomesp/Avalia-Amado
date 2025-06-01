@@ -2,8 +2,8 @@ import styles from './InputEventos.module.css';
 
 function InputEventos({ onChange, values }) {
     return (
-        <div className={styles.container}>
-            <div className={`${styles.input_group} ${styles.nome_evento_group}`}>
+        <div>
+            <div className={styles.input_grupo}>
                 <label htmlFor="nome_evento">Nome do Evento</label>
                 <input
                     type="text"
@@ -15,28 +15,59 @@ function InputEventos({ onChange, values }) {
                 />
             </div>
             <div className = {styles.junto}>
-                <div className={`${styles.input_group} ${styles.data_group}`}>
-                    <label htmlFor="data">Data</label>
+                <div className={styles.input_grupo}>
+                    <label htmlFor="data">Data Inicial</label>
                     <input
                         type="date"
-                        id="data"
-                        name="data"
-                        value={values.data || ''}
+                        id="dataInicial"
+                        name="dataInicial"
+                        value={values.dataInicial || ''}
                         onChange={onChange}
                     />
                 </div>
-                <div className={`${styles.input_group} ${styles.hora_group}`}>
-                    <label htmlFor="hora">Hora</label>
+                <div className={styles.input_grupo}>
+                    <label htmlFor="dataFinal">Data Final</label>
+                    <input
+                        type="date"
+                        id="dataFinal"
+                        name="dataFinal"
+                        value={values.dataFinal || ''}
+                        onChange={onChange}
+                    />
+                </div>
+                <div className={styles.input_grupo}>
+                    <label htmlFor="hora">Hora Inicial</label>
                     <input
                         type="time"
-                        id="hora"
-                        name="hora"
-                        value={values.hora || ''}
+                        id="horaInicial"
+                        name="horaInicial"
+                        value={values.horaInicial || ''}
                         onChange={onChange}
                     />
                 </div>
+                <div className={styles.input_grupo}>
+                    <label htmlFor="horaFinal">Hora Final</label>
+                    <input
+                        type="time"
+                        id="horaFinal"
+                        name="horaFinal"
+                        value={values.horaFinal || ''}
+                        onChange={onChange}
+                    />
+                </div> 
+                <div className={styles.input_grupo}>
+                    <label htmlFor="local">Local</label>
+                    <input
+                        type="text"
+                        id="local"
+                        name="local"
+                        value={values.local || ''}
+                        onChange={onChange}
+                        placeholder="Local do evento"
+                    />
+                </div> 
             </div>
-            <div className={`${styles.input_group} ${styles.descricao_group}`}>
+            <div className={styles.descricao_group}>
                 <label htmlFor="descricao">Descrição</label>
                 <textarea
                     id="descricao"

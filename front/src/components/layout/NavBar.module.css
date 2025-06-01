@@ -16,6 +16,7 @@
     align-items: center;
     margin-left: auto;
     font-weight: bold;
+    flex-wrap: nowrap;
 }
 
 .item{
@@ -42,4 +43,19 @@
 .logo_conte {
     display: flex;
     align-items: center;
+}
+
+.logout{
+    margin-right: 1em;
+    color: #0d1321;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background: gray;
+    color: #0d1321;
 }

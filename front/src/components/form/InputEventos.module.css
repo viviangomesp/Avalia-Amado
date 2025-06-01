@@ -1,34 +1,24 @@
-.nome_evento_group input{
+.input_grupo input{
     width: 100%;
     font-size: 1.1em;
     padding: 0.8em;
+    margin: 0.5em 0;
+    border-radius: 15px;
 }
 
-.data_group input{
-    width: 100%;
-    font-size: 1.1em;
-    padding: 0.8em;
-
-}
-
-.hora_group input{
-    width: 100%;
-    font-size: 1.1em;
-    padding: 0.8em;
-
-}
-.input_group textarea {
+.input_grupo textarea {
     width: 100%;
     font-size: 1.1em;
     padding: 7em;
 } 
+
 .junto {
     display: flex;
     gap: 1em; 
 }
 
-.data_group, .hora_group {
-    flex: 1;
+.junto .input_grupo {
+    flex: 1
 }
 
 .descricao_group textarea {
@@ -38,5 +28,6 @@
     text-align: left;
     vertical-align: top;
     resize: vertical;
-    min-height: 300px;      
+    min-height: 300px;  
+    border-radius: 15px;    
 }

@@ -4,17 +4,50 @@ import SubmitBotao from '../form/SubmitBotao';
 
 import styles from './CriarAvaliacaoForm.module.css';
 
-function CriarAvaliacaoForm({ onSubmit }) {
+function CriarAvaliacaoForm({ usuarioId, servicoId, eventoId }) {
   const [avaliacao, setAvaliacao] = useState(0);
   const [comentario, setComentario] = useState("");
-  const [exibirNome, setExibirNome] = useState("sim"); 
+  const [exibirNome, setExibirNome] = useState("sim"); // valor padrão
 
-  const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ avaliacao, comentario, exibirNome });
-    setAvaliacao(0);
-    setComentario("");
-    setExibirNome("sim");
+    const payload = {
+      descricao: comentario,
+      nota: Number(avaliacao),
+      isAnonimo: exibirNome === "nao"
+    };
+    console.log("Payload enviado:", payload);
+  
+    let url = "";
+    if (servicoId) {
+      url = `http://localhost:8080/avaliacoes/servico/${servicoId}/novaAvaliacao?usuarioId=${usuarioId}&servicoId=${servicoId}`;
+    } else if (eventoId) {
+      url = `http://localhost:8080/avaliacoes/evento/${eventoId}/novaAvaliacao?usuarioId=${usuarioId}&eventoId=${eventoId}`;
+    } else {
+      alert("ID de serviço ou evento não informado!");
+      return;
+    }
+  
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const erro = await response.text();
+        console.error('Erro do backend:', erro);
+        alert("Erro ao enviar avaliação: " + erro);
+      } else {
+        alert("Avaliação enviada com sucesso!");
+        setAvaliacao(0);
+        setComentario("");
+        setExibirNome("sim");
+      }
+    } catch (err) {
+      console.error('Erro na requisição:', err);
+      alert("Erro na requisição: " + err.message);
+    }
   };
 
   return (
@@ -49,7 +82,7 @@ function CriarAvaliacaoForm({ onSubmit }) {
           </label>
         </div>
       </div>
-        <h2>Avaliação do Evento</h2>
+      <h2>Avaliação do Evento</h2>
       <textarea
         className={styles.textarea}
         placeholder="Deixe um comentário..."
