@@ -20,17 +20,17 @@ public class EventoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Evento criarEvento(Evento evento, Long usuarioId) { //TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
+    public Evento criarEvento(Evento evento, Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        
-        String role = usuario.getRole();        
-        
+
+        String role = usuario.getRole();
+
         if (role == null)
             throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
-        
+
         if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
-            throw new RuntimeException("Apenas administradores podem criar eventos");
+            throw new RuntimeException("Apenas administradores podem criar eventos. Acesso Negado.");
         }
 
         if (eventoRepository.findByNome(evento.getNome()) != null) { // Verifica se o evento já está cadastrado atraves do nome
@@ -39,10 +39,22 @@ public class EventoService {
         return eventoRepository.save(evento);
     }
 
-    public Evento editarEvento(long id, Evento evento) {
+    public Evento editarEvento(long id, Evento evento, Long usuarioId) {
         Evento eventoExistente = eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
-        
+
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem editar eventos. Acesso Negado.");
+        }
+
         eventoExistente.setNome(evento.getNome());
         eventoExistente.setDescricao(evento.getDescricao());
         eventoExistente.setLocal(evento.getLocal());
@@ -50,11 +62,22 @@ public class EventoService {
         eventoExistente.setDataFinal(evento.getDataFinal());
         eventoExistente.setHoraInicial(evento.getHoraInicial());
         eventoExistente.setHoraFinal(evento.getHoraFinal());
-        
+
         return eventoRepository.save(eventoExistente);
     }
 
-    public void deleteEvento(long id) {
+    public void deleteEvento(long id, Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem excluir eventos. Acesso Negado.");
+        }
         eventoRepository.deleteById(id);
     }
 
@@ -79,9 +102,19 @@ public class EventoService {
         return eventoRepository.findByDataInicialAfter(data);
     }
 
+    public List<Evento> getEventosPorDataPassada(LocalDate data) {
+        LocalDate hoje = LocalDate.now();
+        return eventoRepository.findByDataFinalBefore(hoje);
+    }
+
+    public List<Evento> getEventosPorDataFutura(LocalDate data) {
+        LocalDate hoje = LocalDate.now();
+        return eventoRepository.findByDataInicialAfter(hoje);
+    }
+
     public Double obterNotaMediaEvento(Long eventoId) {// Obtém a média de avaliações de um evento
         Double media = eventoRepository.calcularMediaAvaliacoesPorEvento(eventoId);
         return media != null ? media : 0.0; // Retorna 0.0 se a média for nula
     }
-    
+
 }

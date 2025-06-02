@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-    //Usuario findByEmail(String email); TODO: VERIFICAR SE É NECESSÁRIO ESTE MÉTODO
-
     boolean existsByEmail(String email);//Verificando se o email já existe no banco de dados
 
     // Método para realizar login, buscando usuário por email e senha

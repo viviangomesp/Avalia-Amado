@@ -18,9 +18,7 @@ public interface ServicoRepository extends JpaRepository<Servico, Long> {
    
     List<Servico> findByLocal(String local);
     
-    List<Servico> findByTipo(TipoServico tipo);
-    
-    //List<Servico> findAllByOrderByNotaDesc(); //Lista por nota em ordem decrescente 
+    List<Servico> findByTipo(TipoServico tipo); 
 
     //Método para calcular a média das avaliações de um serviço específico
     @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.servico.id = :servicoId")

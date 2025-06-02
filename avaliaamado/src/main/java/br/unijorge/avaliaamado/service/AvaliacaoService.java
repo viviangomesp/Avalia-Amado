@@ -11,6 +11,7 @@ import br.unijorge.avaliaamado.model.Evento;
 import br.unijorge.avaliaamado.model.Servico;
 import br.unijorge.avaliaamado.model.Usuario;
 import br.unijorge.avaliaamado.repository.AvaliacaoRepository;
+import br.unijorge.avaliaamado.repository.UsuarioRepository;
 
 @Service
 public class AvaliacaoService {
@@ -27,11 +28,14 @@ public class AvaliacaoService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public Avaliacao criarAvaliacaoEvento(Long eventoId, Long usuarioId, Avaliacao avaliacao) {
         Evento evento = eventoService.getById(eventoId);
-        Usuario usuario = usuarioService.getUsuarioById(usuarioId);
+        Usuario usuario = usuarioService.getById(usuarioId);
 
-        if (evento == null){// Verifica se o evento existe
+        if (evento == null) {// Verifica se o evento existe
             throw new RuntimeException("Evento não encontrado");
         }
 
@@ -49,7 +53,7 @@ public class AvaliacaoService {
             throw new RuntimeException("Usuário já avaliou este evento");
         }
 
-        //Associando para garantir a integridade referencial
+        // Associando para garantir a integridade referencial
         avaliacao.setEvento(evento);
         avaliacao.setUsuario(usuario);
 
@@ -58,8 +62,8 @@ public class AvaliacaoService {
 
     public Avaliacao criarAvaliacaoServico(Long servicoId, Long usuarioId, Avaliacao avaliacao) {
         Servico servico = servicoService.getById(servicoId);
-        Usuario usuario = usuarioService.getUsuarioById(usuarioId);
-        
+        Usuario usuario = usuarioService.getById(usuarioId);
+
         if (servico == null) {
             throw new RuntimeException("Serviço não encontrado");
         }
@@ -91,8 +95,19 @@ public class AvaliacaoService {
         avaliacaoRepository.deleteById(id);
     }
 
-    public List<Avaliacao> getAllAvaliacoes() {
-        return avaliacaoRepository.findAll();    
+    public List<Avaliacao> getAllAvaliacoes(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem listar todas as avaliações. Acesso Negado.");
+        }
+        return avaliacaoRepository.findAll();
     }
 
     public Avaliacao getAvaliacao(long id) {
@@ -115,5 +130,5 @@ public class AvaliacaoService {
     public List<Avaliacao> getAvaliacoesPorNota(Double nota) {
         return avaliacaoRepository.findByNotaGreaterThanEqual(nota);
     }
-    
+
 }

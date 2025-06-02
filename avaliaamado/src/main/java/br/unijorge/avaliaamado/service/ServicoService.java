@@ -20,25 +20,37 @@ public class ServicoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Servico criarServico(Servico servico, Long usuarioId){//TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
+    public Servico criarServico(Servico servico, Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        
-        String role = usuario.getRole();        
-        
+
+        String role = usuario.getRole();
+
         if (role == null)
             throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
-        
+
         if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
-            throw new RuntimeException("Apenas administradores podem criar eventos");
+            throw new RuntimeException("Apenas administradores podem criar serviços. Acesso Negado.");
         }
         return servicoRepository.save(servico);
     }
 
-    public Servico editarServico(long id, Servico servico) {
+    public Servico editarServico(long id, Servico servico, Long usuarioId) {
         Servico servicoExistente = servicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
-        
+
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem editar serviços. Acesso Negado.");
+        }
+
         servicoExistente.setTipo(servico.getTipo());
         servicoExistente.setTipoSaude(servico.getTipoSaude());
         servicoExistente.setDescricao(servico.getDescricao());
@@ -47,12 +59,24 @@ public class ServicoService {
         servicoExistente.setDataFinal(servico.getDataFinal());
         servicoExistente.setHoraInicial(servico.getHoraInicial());
         servicoExistente.setHoraFinal(servico.getHoraFinal());
-        
+
         return servicoRepository.save(servicoExistente);
 
     }
-    
-    public void deleteServico(long id) {
+
+    public void deleteServico(long id, Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem excluir serviços. Acesso Negado.");
+        }
+
         servicoRepository.deleteById(id);
     }
 
@@ -82,9 +106,9 @@ public class ServicoService {
         return servicoRepository.findByLocal(local);
     }
 
-    public Double obterNotaMediaServico (Long servicoId){
+    public Double obterNotaMediaServico(Long servicoId) {
         Double media = servicoRepository.calcularMediaAvaliacoesPorServico(servicoId);
         return media != null ? media : 0.0; // Retorna 0.0 se a média for nula
     }
-    
+
 }

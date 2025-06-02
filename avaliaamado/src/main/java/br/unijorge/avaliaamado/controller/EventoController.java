@@ -18,7 +18,6 @@ import br.unijorge.avaliaamado.service.EventoService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/eventos")
 public class EventoController {
@@ -44,31 +43,47 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
 
+    @GetMapping("/passado") // Lista eventos que já ocorreram
+    public ResponseEntity<List<Evento>> listarEventosPorDataPassada() {
+        List<Evento> eventos = eventoService.getEventosPorDataPassada(LocalDate.now());
+        return ResponseEntity.ok(eventos);
+    }
+
+    @GetMapping("/futuro") // Lista eventos que ocorrerão no futuro
+    public ResponseEntity<List<Evento>> listarEventosPorDataFutura() {
+        List<Evento> eventos = eventoService.getEventosPorDataFutura(LocalDate.now());
+        return ResponseEntity.ok(eventos);
+    }
+
     @GetMapping("/all") // Lista todos os eventos existentes
     public ResponseEntity<List<Evento>> getAllEventos() {
         return ResponseEntity.ok(eventoService.getAllEventos());
     }
 
-    @GetMapping("/notaMediaDesc")// Lista eventos por média de nota em ordem decrescente
+    @GetMapping("/notaMediaDesc") // Lista eventos por média de nota em ordem decrescente
     public ResponseEntity<List<Evento>> listarEventosPorMediaNotaDesc() {
         List<Evento> eventos = eventoService.listarPorNotaDesc();
         return ResponseEntity.ok(eventos);
     }
 
-    @PostMapping("/novoEvento") // Cria um novo evento  TODO: SOMENTE ADMINISTRADOR PODE CRIAR EVENTO
+    @PostMapping("/novoEvento")
     public ResponseEntity<?> criarEvento(@RequestBody Evento evento, @RequestParam Long usuarioId) {
-        try{
+        try {
             Evento novoEvento = eventoService.criarEvento(evento, usuarioId);
             return ResponseEntity.ok(novoEvento);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage())); // Retorna erro se não for administrador ou evento já cadastrado
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
         }
     }
 
     @DeleteMapping("/delete/{id}") // Exclui um evento por seu ID
-    public ResponseEntity<Void> deleteEvento(@PathVariable Long id) {
-        eventoService.deleteEvento(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteEvento(@PathVariable Long id, @RequestParam Long usuarioId) {
+        try {
+            eventoService.deleteEvento(id, usuarioId);
+            return ResponseEntity.ok(Map.of("mensagem", "Evento excluído com sucesso"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
     }
 
 }

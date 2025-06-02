@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import br.unijorge.avaliaamado.repository.UsuarioRepository;
 import br.unijorge.avaliaamado.model.Usuario;
 
-
 @Service
 public class UsuarioService {
 
@@ -15,27 +14,27 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public void criarUsuario(Usuario usuario) {
-         if (usuarioRepository.existsByEmail(usuario.getEmail())) { // Verifica se o email já está cadastrado
-             throw new RuntimeException("Email já cadastrado");
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) { // Verifica se o email já está cadastrado
+            throw new RuntimeException("Email já cadastrado");
         }
-        
-         if (!isValidarEmail(usuario.getEmail())) {
-             throw new RuntimeException("Email inválido");
+
+        if (!isValidarEmail(usuario.getEmail())) {
+            throw new RuntimeException("Email inválido");
         }
 
         usuarioRepository.save(usuario);
     }
-  
-    private boolean isValidarEmail(String email){ // Valida o email por expressões regulares
+
+    private boolean isValidarEmail(String email) { // Valida o email por expressões
         return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
     }
 
-    public Usuario login(String email, String senha){// Realizar login do usuário
+    public Usuario login(String email, String senha) {// Realizar login do usuário
         return usuarioRepository.findByEmailAndSenha(email, senha)
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
     }
 
-    public Usuario atualizarUsuario(long id, Usuario usuario) {
+    public Usuario editarUsuario(long id, Usuario usuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -53,13 +52,24 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario getUsuarioById(long id) {
+    public Usuario getById(long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
-    public List<Usuario> getAllUsuarios() {
+    public List<Usuario> getAllUsuarios(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String role = usuario.getRole();
+
+        if (role == null)
+            throw new RuntimeException("Usuário não possui função atribuída. Acesso Negado.");
+
+        if (!role.equalsIgnoreCase("ADMIN")) { // Verifica se o usuário é administrador
+            throw new RuntimeException("Apenas administradores podem listar os usuários do sistema. Acesso Negado.");
+        }
         return usuarioRepository.findAll();
     }
-    
+
 }

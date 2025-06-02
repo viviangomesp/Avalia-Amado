@@ -26,12 +26,12 @@ public class ServicoController {
     @Autowired
     private ServicoService servicoService;
 
-    @GetMapping("/all") //Lista todos os serviços existentes
+    @GetMapping("/all") // Lista todos os serviços existentes
     public ResponseEntity<List<Servico>> getAllServicos() {
         return ResponseEntity.ok(servicoService.getAllServicos());
     }
 
-    @GetMapping("/porTipo") //Lista serviços por tipo
+    @GetMapping("/porTipo") // Lista serviços por tipo
     public ResponseEntity<List<Servico>> listarServicoPorTipo(@RequestParam TipoServico tipo) {
         List<Servico> servicos = servicoService.buscarServicoPorTipo(tipo);
         return ResponseEntity.ok(servicos);
@@ -43,13 +43,13 @@ public class ServicoController {
         return ResponseEntity.ok(servicos);
     }
 
-    @GetMapping("/notaMediaDesc") 
+    @GetMapping("/notaMediaDesc")
     public ResponseEntity<List<Servico>> listarServicosPorMediaNotaDesc() {
         List<Servico> servicos = servicoService.listarPorNotaDesc();
         return ResponseEntity.ok(servicos);
     }
 
-    @PostMapping("/novoServico") // Cria um novo serviço TODO: SOMENTE ADMINISTRADOR PODE CRIAR SERVIÇO
+    @PostMapping("/novoServico")
     public ResponseEntity<?> criarServico(@RequestBody Servico servico, @RequestParam Long usuarioId) {
         try {
             Servico novoServico = servicoService.criarServico(servico, usuarioId);
@@ -59,15 +59,24 @@ public class ServicoController {
         }
     }
 
-    @PutMapping("/editarServico/{id}") // Edita um serviço existente SOMENTE ADMINISTRADOR PODE EDITAR SERVIÇO
-    public ResponseEntity<Servico> editarServico(@PathVariable long id, @RequestBody Servico servico) {
-        Servico servicoEditado = servicoService.editarServico(id, servico);
-        return ResponseEntity.ok(servicoEditado);
+    @PutMapping("/editarServico/{id}") // Edita um serviço existente | SOMENTE ADMINISTRADOR PODE EDITAR SERVIÇO
+    public ResponseEntity<?> editarServico(@PathVariable long id, @RequestBody Servico servico,
+            @RequestParam Long usuarioId) {
+        try {
+            Servico servicoAtualizado = servicoService.editarServico(id, servico, usuarioId);
+            return ResponseEntity.ok(servicoAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
     }
 
     @DeleteMapping("/delete/{id}") // Exclui um serviço por seu ID
-    public ResponseEntity<Void> deleteServico(@PathVariable long id) {
-        servicoService.deleteServico(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteServico(@PathVariable Long id, @RequestParam Long usuarioId) {
+        try {
+            servicoService.deleteServico(id, usuarioId);
+            return ResponseEntity.ok(Map.of("mensagem", "Serviço excluído com sucesso"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
     }
 }

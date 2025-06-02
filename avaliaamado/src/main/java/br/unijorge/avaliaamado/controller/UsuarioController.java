@@ -1,6 +1,7 @@
 package br.unijorge.avaliaamado.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unijorge.avaliaamado.DTO.LoginRequest;
@@ -25,18 +27,23 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Usuario>> getAllUsuarios(){
-        return ResponseEntity.ok(usuarioService.getAllUsuarios());
+    public ResponseEntity<?> getAllUsuarios(@RequestParam Long usuarioId) {
+        try {
+            List<Usuario> usuarios = usuarioService.getAllUsuarios(usuarioId);
+            return ResponseEntity.ok(usuarios);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
-        Usuario usuario = usuarioService.getUsuarioById(id);
+        Usuario usuario = usuarioService.getById(id);
         return ResponseEntity.ok(usuario);
     }
 
     @PostMapping("/novoUsuario")
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
         try {
             usuarioService.criarUsuario(usuario);
             return ResponseEntity.ok(usuario);
@@ -46,7 +53,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> loginUsuario (@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Usuario> loginUsuario(@RequestBody LoginRequest loginRequest) {
         try {
             Usuario usuario = usuarioService.login(loginRequest.getEmail(), loginRequest.getSenha());
             return ResponseEntity.ok(usuario);
@@ -54,10 +61,10 @@ public class UsuarioController {
             return ResponseEntity.status(401).body(null);
         }
     }
- 
+
     @PutMapping("/editarUsuario/{id}")
     public ResponseEntity<Usuario> editarUsuario(@PathVariable long id, @RequestBody Usuario usuario) {
-        Usuario usuarioAtualizado = usuarioService.atualizarUsuario(id, usuario);
+        Usuario usuarioAtualizado = usuarioService.editarUsuario(id, usuario);
         return ResponseEntity.ok(usuarioAtualizado);
     }
 

@@ -22,6 +22,8 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 
     List<Evento> findByDataInicialAfter(LocalDate dataInicial);
 
+    List<Evento> findByDataFinalBefore(LocalDate dataFinal);
+
     Optional<Evento> findById(long id); //Busca evento por ID
 
     //Método para calcular a média das avaliações de um evento específico
