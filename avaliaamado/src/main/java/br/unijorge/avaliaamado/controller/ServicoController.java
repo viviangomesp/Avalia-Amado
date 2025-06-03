@@ -26,6 +26,12 @@ public class ServicoController {
     @Autowired
     private ServicoService servicoService;
 
+    @GetMapping("/{id}") // Lista um serviço por seu ID
+    public ResponseEntity<Servico> getServicoById(@PathVariable Long id) {
+        Servico servico = servicoService.getById(id);
+        return ResponseEntity.ok(servico);
+    }
+
     @GetMapping("/all") // Lista todos os serviços existentes
     public ResponseEntity<List<Servico>> getAllServicos() {
         return ResponseEntity.ok(servicoService.getAllServicos());
