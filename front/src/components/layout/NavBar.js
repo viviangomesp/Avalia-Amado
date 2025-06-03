@@ -4,23 +4,21 @@ import styles from "./NavBar.module.css";
 import logo from "../../img/Titulo_Avalia.png";
 
 function NavBar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("usuarioId"));
     const [role, setRole] = useState(localStorage.getItem("role"));
     const navigate = useNavigate();
 
-    // Atualiza o estado quando houver mudança no localStorage (ex: após login/logout)
     useEffect(() => {
         const onStorage = () => {
-            setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+            setIsLoggedIn(!!localStorage.getItem("usuarioId"));
             setRole(localStorage.getItem("role"));
         };
         window.addEventListener("storage", onStorage);
         return () => window.removeEventListener("storage", onStorage);
     }, []);
 
-    // Atualiza ao navegar
     useEffect(() => {
-        setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+        setIsLoggedIn(!!localStorage.getItem("usuarioId"));
         setRole(localStorage.getItem("role"));
     }, []);
 

@@ -67,6 +67,10 @@
   margin-top: 24px;
 }
 
+.avaliacoes h2{
+    text-align: center;
+}
+
 .avaliacaoCard {
   background: #f8f8f8;
   border-radius: 8px;

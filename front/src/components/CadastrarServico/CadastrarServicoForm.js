@@ -29,21 +29,35 @@ function CadastrarServicoForm({ botaoText }) {
             [e.target.name]: e.target.value
         });
     }
-
     async function handleSubmit(e) {
         e.preventDefault();
+        const usuarioId = localStorage.getItem('usuarioId');
+    
+        // Validação dos campos obrigatórios
+        if (
+            !values.tipo ||
+            !values.descricao ||
+            !values.local ||
+            !values.dataInicial ||
+            !values.horaInicial ||
+            (values.tipo === "SAUDE" && !values.tipoSaude)
+        ) {
+            alert("Preencha todos os campos obrigatórios!");
+            return;
+        }
+        // Monta o payload para o backend
+        const servicoPayload = {
+            tipo: values.tipo,
+            descricao: values.descricao,
+            local: values.local,
+            dataInicial: values.dataInicial,
+            horaInicial: values.horaInicial,
+        };
+        if (values.dataFinal) servicoPayload.dataFinal = values.dataFinal;
+        if (values.horaFinal) servicoPayload.horaFinal = values.horaFinal;
+        if (values.tipo === "SAUDE") servicoPayload.tipoSaude = values.tipoSaude;
+    
         try {
-            const usuarioId = localStorage.getItem('usuarioId');
-            const servicoPayload = {
-                tipo: values.tipo,
-                tipoSaude: values.tipoSaude,
-                descricao: values.descricao,
-                local: values.local,
-                dataInicial: values.dataInicial,
-                dataFinal: values.dataFinal,
-                horaInicial: values.horaInicial,
-                horaFinal: values.horaFinal,
-            };
             const response = await fetch(`http://localhost:8080/servicos/novoServico?usuarioId=${usuarioId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -53,11 +67,10 @@ function CadastrarServicoForm({ botaoText }) {
                 alert('Serviço cadastrado com sucesso!');
                 navigate('/');
             } else {
-                const erro = await response.json();
-                alert('Erro ao cadastrar serviço: ' + (erro.erro || 'Verifique os dados.'));
+              
+                alert('Erro ao cadastrar serviço: Verifique os dados e tente novamente. ');
             }
-        } catch (err) {
-            console.error(err);
+        } catch {
             alert('Erro ao cadastrar serviço. Tente novamente.');
         }
     }

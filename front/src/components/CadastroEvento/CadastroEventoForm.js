@@ -54,8 +54,7 @@ function CadastroEventoForm({ botaoText }) {
                 alert('Evento cadastrado com sucesso!');
                 navigate('/');
             } else {
-                const erro = await response.json();
-                alert('Erro ao cadastrar evento: ' + (erro.erro || 'Verifique os dados.'));
+                alert('Erro ao cadastrar evento: Verifique os dados.');
             }
         } catch (err) {
             alert('Erro ao conectar com o servidor!');

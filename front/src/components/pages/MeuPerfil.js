@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'; // Importa React e hooks
 import styles from './MeuPerfil.module.css'; // Importa os estilos CSS do perfil
 import fotoperfil from '../../img/fotoperfil.png'; // Importa imagem padrão de perfil
 import { useNavigate } from 'react-router-dom'; // Importa hook para navegação
+import OnclickBotao from '../layout/OnclickBotao'; 
+import botaostyles from '../layout/OnclickBotao.module.css'; // Importa estilos dos botões
 
 function MeuPerfil() {
   // Estado para armazenar dados do usuário
@@ -44,6 +46,27 @@ function MeuPerfil() {
         />
         <h2>{usuario.nome}</h2>
         <p>{usuario.email}</p>
+        <OnclickBotao 
+          text="Alterar Dados" 
+          className={styles.botaoAlterar} 
+          onClick={() => navigate('/AlterarDados')}
+        />
+        <OnclickBotao 
+          text="Deletar Conta"
+          className={botaostyles.botaoDeletar}
+          onClick={() => {
+            if (window.confirm('Tem certeza que deseja deletar sua conta?')) {
+              fetch(`http://localhost:8080/usuarios/delete/${usuario.id}`, {
+                method: 'DELETE',
+              })
+                .then(() => {
+                  localStorage.removeItem('usuarioId'); 
+                  navigate('/'); 
+                  window.location.reload(); // força o reload da página
+                });
+            }
+          }}
+        />
       </div>
 
       {/* Seção de avaliações recentes */}

@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Home.module.css';
-import EventoCard from '../layout/EventoCard';
-import ServicoCard from '../layout/ServicoCard';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./Home.module.css";
+import EventoCard from "../layout/EventoCard";
+import ServicoCard from "../layout/ServicoCard";
 
 function Home() {
   const [servicos, setServicos] = useState([]);
   const [eventos, setEventos] = useState([]);
   const [eventosDestaque, setEventosDestaque] = useState([]);
   const [eventosFuturos, setEventosFuturos] = useState([]);
-  const [busca, setBusca] = useState('');
+  const [busca, setBusca] = useState("");
   const [resultados, setResultados] = useState([]);
   const [resultadosServicos, setResultadosServicos] = useState([]);
   const [buscou, setBuscou] = useState(false);
-  const usuarioId = localStorage.getItem('usuarioId');
+  const usuarioId = localStorage.getItem("usuarioId");
+  const isLogged = () => !!usuarioId;
 
   // Busca todos os serviços
   useEffect(() => {
-    fetch('http://localhost:8080/servicos/all')
-      .then(res => res.json())
-      .then(data => setServicos(Array.isArray(data) ? data : []));
+    fetch("http://localhost:8080/servicos/all")
+      .then((res) => res.json())
+      .then((data) => setServicos(Array.isArray(data) ? data : []));
   }, []);
 
   // Busca todos os eventos para pesquisa
   useEffect(() => {
-    fetch('http://localhost:8080/eventos/all')
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:8080/eventos/all")
+      .then((res) => res.json())
+      .then((data) => {
         if (Array.isArray(data)) setEventos(data);
         else if (Array.isArray(data.content)) setEventos(data.content);
         else setEventos([]);
@@ -35,9 +36,9 @@ function Home() {
 
   // Busca eventos em destaque (mais bem avaliados)
   useEffect(() => {
-    fetch('http://localhost:8080/eventos/notaMediaDesc')
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:8080/eventos/notaMediaDesc")
+      .then((res) => res.json())
+      .then((data) => {
         if (Array.isArray(data)) setEventosDestaque(data);
         else if (Array.isArray(data.content)) setEventosDestaque(data.content);
         else setEventosDestaque([]);
@@ -46,9 +47,9 @@ function Home() {
 
   // Busca eventos futuros para "Próximos Eventos"
   useEffect(() => {
-    fetch('http://localhost:8080/eventos/futuro')
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:8080/eventos/futuro")
+      .then((res) => res.json())
+      .then((data) => {
         if (Array.isArray(data)) setEventosFuturos(data);
         else if (Array.isArray(data.content)) setEventosFuturos(data.content);
         else setEventosFuturos([]);
@@ -84,7 +85,7 @@ function Home() {
 
   // Função para resetar a home
   const handleHome = () => {
-    setBusca('');
+    setBusca("");
     setResultados([]);
     setResultadosServicos([]);
     setBuscou(false);
@@ -95,7 +96,11 @@ function Home() {
       {/* 1 - Login/Cadastro */}
       <div>
         <nav className={styles.topBar}>
-          <Link to="/Cadastro" className={styles.cadastro}>Login/Cadastro</Link>
+          {!isLogged() && (
+            <Link to="/Cadastro" className={styles.cadastro}>
+              Login/Cadastro
+            </Link>
+          )}
         </nav>
       </div>
 
@@ -103,22 +108,29 @@ function Home() {
       <div>
         <section className={styles.secaoEventos}>
           <h2>Pesquisar eventos ou serviços</h2>
-          <form style={{ display: 'flex', width: '100%' }} onSubmit={handleBuscar}>
+          <form
+            style={{ display: "flex", width: "100%" }}
+            onSubmit={handleBuscar}
+          >
             <input
               type="text"
               placeholder="Digite o nome ou local do evento ou serviço..."
               className={styles.pesquisaInput}
               value={busca}
-              onChange={e => {
+              onChange={(e) => {
                 setBusca(e.target.value);
                 setBuscou(false);
               }}
             />
-            <button type="submit" className={styles.botaoBusca}>Buscar</button>
+            <button type="submit" className={styles.botaoBusca}>
+              Buscar
+            </button>
           </form>
           {/* Botão "Voltar para o início" */}
-          {(busca || resultados.length > 0 || resultadosServicos.length > 0) && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          {(busca ||
+            resultados.length > 0 ||
+            resultadosServicos.length > 0) && (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button
                 className={styles.botaoVoltar}
                 style={{ marginTop: 16, marginBottom: 8 }}
@@ -135,7 +147,7 @@ function Home() {
                 <>
                   <h3>Eventos</h3>
                   <div className={styles.lista}>
-                    {resultados.map(evento => (
+                    {resultados.map((evento) => (
                       <EventoCard key={evento.id} evento={evento} />
                     ))}
                   </div>
@@ -145,7 +157,7 @@ function Home() {
                 <>
                   <h3>Serviços</h3>
                   <div className={styles.lista}>
-                    {resultadosServicos.map(servico => (
+                    {resultadosServicos.map((servico) => (
                       <ServicoCard key={servico.id} servico={servico} />
                     ))}
                   </div>
@@ -153,9 +165,13 @@ function Home() {
               )}
             </>
           )}
-          {buscou && resultados.length === 0 && resultadosServicos.length === 0 && (
-            <p style={{marginTop: 10}}>Nenhum evento ou serviço encontrado.</p>
-          )}
+          {buscou &&
+            resultados.length === 0 &&
+            resultadosServicos.length === 0 && (
+              <p style={{ marginTop: 10 }}>
+                Nenhum evento ou serviço encontrado.
+              </p>
+            )}
         </section>
       </div>
 
@@ -165,7 +181,7 @@ function Home() {
           <section className={styles.secaoEventos}>
             <h2>Eventos em Destaque</h2>
             <div className={styles.lista}>
-              {eventosDestaque.slice(0, 2).map(evento => (
+              {eventosDestaque.slice(0, 2).map((evento) => (
                 <EventoCard key={evento.id} evento={evento} />
               ))}
             </div>
@@ -179,7 +195,7 @@ function Home() {
           <section className={styles.secaoEventos}>
             <h2>Próximos Eventos</h2>
             <div className={styles.lista}>
-              {eventosFuturos.map(evento => (
+              {eventosFuturos.map((evento) => (
                 <EventoCard key={evento.id} evento={evento} />
               ))}
             </div>

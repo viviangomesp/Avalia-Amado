@@ -111,3 +111,15 @@
   word-break: break-word;
   flex: 1 1 300px; /* <-- permite crescer e quebrar */
 }
+
+.delete{
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+}

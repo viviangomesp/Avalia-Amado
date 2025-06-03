@@ -2,6 +2,7 @@
 import React from 'react';
 import styles from './EventoCard.module.css';
 import { useNavigate } from 'react-router-dom';
+import Capa from '../../img/CapaEvento.png'; 
 
 function EventoCard({ evento }) {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ style={{ cursor: 'pointer' }}
 >
   <div className={styles['evento-img-wrapper']}>
     <img
-      src={evento.imagem || evento.urlImagem || '/placeholder.png'}
+      src={evento.imagem || evento.urlImagem || Capa}
       alt={evento.nome}
       className={styles['evento-img']}
     />
