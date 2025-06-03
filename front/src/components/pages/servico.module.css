@@ -1,0 +1,75 @@
+.servicoContainer {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.topo {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  width: 100%;              /* Garante que ocupe toda a largura */
+  min-height: 280px;        /* Altura mínima para visual bonito */
+}
+
+.imagemWrapper {
+  flex-shrink: 0;           /* Não deixa a imagem diminuir */
+  min-width: 280px;
+  max-width: 320px;
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.botaoAvaliar {
+  background: #0d1321;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.botaoAvaliar:hover {
+  background: #fcbfb7;
+  color: #0d1321;
+}
+
+.avaliacoes {
+  margin-top: 24px;
+}
+
+.avaliacaoCard {
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}

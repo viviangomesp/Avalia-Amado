@@ -1,0 +1,64 @@
+/* src/layout/EventoCard/EventoCard.css */
+
+.evento-card {
+  width: 260px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.evento-img-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px; /* opcional, para cantos arredondados */
+  margin-bottom: 0.5rem;
+}
+
+.evento-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.evento-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.evento-nome {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.evento-local,
+.evento-data {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #333;
+}
+
+.evento-avaliacao {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.evento-aviso {
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
+  margin-top: 0.5rem;
+}

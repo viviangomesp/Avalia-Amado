@@ -1,0 +1,26 @@
+.minhas-avaliacoes-container {
+  padding: 2rem;
+  text-align: left;
+}
+
+.minhas-avaliacoes-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+.avaliacoes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.vazio {
+  font-style: italic;
+  color: #777;
+  margin-top: 1rem;
+}
+
+.aviso {
+  margin: 3rem 2rem;
+  font-size: 1.2rem;
+  color: #b00;
+}

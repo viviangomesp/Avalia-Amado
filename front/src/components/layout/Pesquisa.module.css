@@ -1,0 +1,41 @@
+.pesquisaContainer {
+    margin-top: 2rem;
+    margin-left: 0;
+    width: 100%;
+    max-width: 700px;
+}
+
+.pesquisaInput {
+    padding: 0.7em 0.7em;
+    border-radius: 15px 0 0 15px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+}
+
+.botaoBusca {
+    background-color: #0d1321;
+    color: white;
+    padding: 0.7em 1.2em;
+    border-radius: 0 15px 15px 0;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.botaoBusca:hover {
+    background-color: #fcbfb7;
+    color: #0d1321;
+}
+
+@media (max-width: 700px) {
+    .pesquisaContainer {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    .pesquisaInput {
+        font-size: 0.95rem;
+    }
+}

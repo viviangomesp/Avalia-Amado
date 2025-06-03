@@ -8,6 +8,8 @@ import CadastroEvento from './components/pages/CadastroEvento'
 import CriarAvaliacao from './components/pages/CriarAvaliacao'   
 import MinhasAvaliacoes from './components/pages/MinhasAvaliacoes'
 import SobreNos from './components/pages/SobreNos'
+import Evento from './components/pages/Evento'
+import Servico from './components/pages/Servico'
 
 import Container from './components/layout/Container'
 import NavBar from './components/layout/NavBar'
@@ -30,6 +32,8 @@ function App() {
             <Route path = "/CriarAvaliacao" element = {<CriarAvaliacao />} />
             <Route path = "/MinhasAvaliacoes" element = {<MinhasAvaliacoes />} />
             <Route path = "/SobreNos" element = {<SobreNos />} />
+            <Route path="/evento/:id" element={<Evento />} />
+            <Route path="/servico/:id" element={<Servico />} />
           </Routes>
         </Container>
         <Footer />

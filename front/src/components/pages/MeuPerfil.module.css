@@ -1,0 +1,52 @@
+
+
+.perfilContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.infoCentral {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.secaoEsquerda {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.listaEventos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.avaliacaoCard {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 250px;
+  background-color: #f9f9f9;
+  align-items: center;
+}
+
+.avaliacaoCard h4 {
+  margin-top: 0;
+}
+
+.avaliacoesTitulo {
+  margin-top: 3rem;
+  text-align: center;
+}

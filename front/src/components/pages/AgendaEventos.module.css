@@ -1,0 +1,7 @@
+.eventos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* espaço entre os cards */
+  justify-content: flex-start; /* ou center, se quiser centralizar */
+}
+
