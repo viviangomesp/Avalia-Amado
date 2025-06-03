@@ -43,9 +43,14 @@ function NavBar() {
             </div>
             <ul className={styles.list}>
                 {role === "ADMIN" && (
-                    <li className={styles.item}>
-                        <Link to="/CadastroEvento">CADASTRAR EVENTO</Link>
-                    </li>
+                    <>
+                        <li className={styles.item}>
+                            <Link to="/CadastroEvento">CADASTRAR EVENTO</Link>
+                        </li>
+                        <li className={styles.item}>
+                            <Link to="/CadastrarServico">CADASTRAR SERVIÇO</Link>
+                        </li>
+                    </>
                 )}
                 <li className={styles.item}>
                     <Link to="/">Home</Link>

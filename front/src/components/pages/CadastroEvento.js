@@ -1,6 +1,7 @@
 import styles from './CadastroEvento.module.css';
 import React, { useEffect, useState } from 'react';
 import CadastroEventoForm from '../CadastroEvento/CadastroEventoForm';
+
 function CadastroEvento() {
     const [fadeIn, setFadeIn] = useState(false);
 

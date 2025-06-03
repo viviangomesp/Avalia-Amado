@@ -7,6 +7,7 @@ function Cadastro() {
 
     useEffect(() => {
         setFadeIn(true);
+        
     }, []);
 
     return(
