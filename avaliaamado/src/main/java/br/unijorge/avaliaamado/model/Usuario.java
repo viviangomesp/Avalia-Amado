@@ -2,6 +2,9 @@ package br.unijorge.avaliaamado.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +36,8 @@ public class Usuario {
 
     private String role; // ADMIN/USER
 
-    @OneToMany // Um usuário pode ter várias avaliações
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)// Um usuário pode ter várias avaliações
+    @JsonBackReference
     private List<Avaliacao> avaliacoes;
 
 }
