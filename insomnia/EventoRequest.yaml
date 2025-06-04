@@ -1,0 +1,221 @@
+type: collection.insomnia.rest/5.0
+name: Evento Request
+meta:
+  id: wrk_5dcd2d3f93364a078bd939a87d56459c
+  created: 1748992771992
+  modified: 1748992800873
+collection:
+  - name: Evento
+    meta:
+      id: fld_a1d25257683f40c3bfe35c8749703ad2
+      created: 1748459869061
+      modified: 1748992824585
+      sortKey: -1748459869061
+    children:
+      - url: http://localhost:8080/eventos/1
+        name: Evento por ID
+        meta:
+          id: req_c7086a43fd964240b7cdce6b73d31d0d
+          created: 1748459873425
+          modified: 1748533589500
+          isPrivate: false
+          sortKey: -1748459873425
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/porLocal/Auditorio%20Principal
+        name: Eventos por Local
+        meta:
+          id: req_3f2ea861aeef4e35ac8864a7d2c3f8bd
+          created: 1748459982289
+          modified: 1748470373355
+          isPrivate: false
+          sortKey: -1748459982289
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/porData/2025-01-01
+        name: Eventos por Data
+        meta:
+          id: req_ffcf25e6cee344ee852fb90c379288bb
+          created: 1748460003649
+          modified: 1748533667614
+          isPrivate: false
+          sortKey: -1748460003649
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/all
+        name: Todos Eventos
+        meta:
+          id: req_2d5606a6929a40d190f2ec1cd350bf14
+          created: 1748460031569
+          modified: 1748876437054
+          isPrivate: false
+          sortKey: -1748459907591
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/notaMediaDesc
+        name: Eventos Nota Média
+        meta:
+          id: req_44285b1a28f147bd88bc8d572a6f5291
+          created: 1748460060456
+          modified: 1748472608548
+          isPrivate: false
+          sortKey: -1748460060456
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/novoEvento?usuarioId=2
+        name: Novo Evento
+        meta:
+          id: req_b00e106af7ec4749bb88a9ac908605fb
+          created: 1748460144924
+          modified: 1748534396706
+          isPrivate: false
+          sortKey: -1748460060556
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+            	"nome" : "teste 2",
+            	"local" : "Microsoft Teams",
+            	"dataInicial" : "2025-04-16",
+            	"dataFinal" : "2025-04-17",
+            	"horaInicial" : "14:00",
+            	"horaFinal" : "16:00",
+            	"descricao" : "Os cursos de Direito e Relações Internacionais da UJ realizam, entre os dias 16 e 17/04, o Simpósio com o tema: Novos Direitos – Direito LGBTQIA+"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/delete/5?usuarioId=5
+        name: Exclusão de Evento
+        meta:
+          id: req_9128a12f326045468dbd7ac60f803ddc
+          created: 1748460800352
+          modified: 1748533797227
+          isPrivate: false
+          sortKey: -1748460060656
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/passado
+        name: Eventos Passados
+        meta:
+          id: req_d65f1659e54a4bdd88f54b2c70b86cc0
+          created: 1748878414857
+          modified: 1748878456888
+          isPrivate: false
+          sortKey: -1748460060506
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/eventos/futuro
+        name: Eventos Futuros
+        meta:
+          id: req_f8071dd152e84b818dd63ffda5aeed46
+          created: 1748878500475
+          modified: 1748878526220
+          isPrivate: false
+          sortKey: -1748460060531
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_f52dd42a9453f43e4ffb378a68e219b3d51f48c6
+    created: 1748992771997
+    modified: 1748992771997
+environments:
+  name: Base Environment
+  meta:
+    id: env_f52dd42a9453f43e4ffb378a68e219b3d51f48c6
+    created: 1748992771994
+    modified: 1748992771994
+    isPrivate: false

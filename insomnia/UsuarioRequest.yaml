@@ -1,0 +1,177 @@
+type: collection.insomnia.rest/5.0
+name: Usuário Request
+meta:
+  id: wrk_e486f2bfb1b14bf29d21ca7cf9d682b2
+  created: 1748992693192
+  modified: 1748992788165
+collection:
+  - name: Usuário
+    meta:
+      id: fld_ce9e24059e0d422aa78a02bf54f26968
+      created: 1748992725061
+      modified: 1748992745147
+      sortKey: -1748461169858
+    children:
+      - url: http://localhost:8080/usuarios/all?usuarioId=5
+        name: Todos Usuários
+        meta:
+          id: req_faec5acb353d474181bfd4584de778ae
+          created: 1748992725062
+          modified: 1748992725062
+          isPrivate: false
+          sortKey: -1748461520708
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/usuarios/1
+        name: Usuário por ID
+        meta:
+          id: req_b95be924cea2447e867a2bce79a3261d
+          created: 1748992725064
+          modified: 1748992725064
+          isPrivate: false
+          sortKey: -1748461554455
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/usuarios/novoUsuario
+        name: Novo Usuário
+        meta:
+          id: req_53eb1749088c4714a785ab2bf6e5305c
+          created: 1748992725065
+          modified: 1748992725065
+          isPrivate: false
+          sortKey: -1748461584375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome" : "Caio Eduardo",
+            	"email" : "caioeduardo@unijorge.com",
+            	"senha" : "123caio",
+            	"role" : ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/usuarios/login
+        name: Usuário Login
+        meta:
+          id: req_026c1d14dacc4d638f29d95f27e3f3ba
+          created: 1748992725066
+          modified: 1748992725066
+          isPrivate: false
+          sortKey: -1748461695927
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email" : "caioeduardo@unijorge.com",
+            	"senha" : "123caio"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/usuarios/editarUsuario/7
+        name: Editar Usuário
+        meta:
+          id: req_df98ea2493e443fba5febdaccf626718
+          created: 1748992725068
+          modified: 1748992725068
+          isPrivate: false
+          sortKey: -1748461806586
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome" : "Caio Eduardo",
+            	"email" : "caioeduardo@unijorge.com",
+            	"senha" : "mudeiasenha123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/usuarios/delete/7
+        name: Exclusão de Usuário
+        meta:
+          id: req_b026661d502c4de0926b3fbca060d7f9
+          created: 1748992725069
+          modified: 1748992725069
+          isPrivate: false
+          sortKey: -1748461883657
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_5586968703aef2d3028c458726b5d7cb8eb77a48
+    created: 1748992693200
+    modified: 1748992693200
+environments:
+  name: Base Environment
+  meta:
+    id: env_5586968703aef2d3028c458726b5d7cb8eb77a48
+    created: 1748992693195
+    modified: 1748992693195
+    isPrivate: false

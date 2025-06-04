@@ -1,0 +1,195 @@
+type: collection.insomnia.rest/5.0
+name: Serviço Request
+meta:
+  id: wrk_10fff05dc22941f189193c4d161f37c7
+  created: 1747776504519
+  modified: 1748992848504
+collection:
+  - name: Serviço
+    meta:
+      id: fld_900a0789d6af461eb1ac350fdaeb1c0b
+      created: 1748460861215
+      modified: 1748460861215
+      sortKey: -1748460861215
+    children:
+      - url: http://localhost:8080/servicos/all
+        name: Todos Serviços
+        meta:
+          id: req_4b6ec5f432004273849a2210ac7ca77d
+          created: 1748460865021
+          modified: 1748462217421
+          isPrivate: false
+          sortKey: -1748460884215
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/porTipo?tipo=SAUDE
+        name: Serviço por Tipo
+        meta:
+          id: req_78dc5e3de6564d8795f77421a9242771
+          created: 1748460884315
+          modified: 1748533191980
+          isPrivate: false
+          sortKey: -1748460884240
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/porLocal/Sala%20de%20Idiomas
+        name: Serviço por Local
+        meta:
+          id: req_26383d489f984ba2ba87d76f1966cac0
+          created: 1748460930043
+          modified: 1748533276799
+          isPrivate: false
+          sortKey: -1748460884265
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/notaMediaDesc
+        name: Serviço por Nota Média
+        meta:
+          id: req_7015f1aea384443584ed902458b70970
+          created: 1748460972496
+          modified: 1748476474864
+          isPrivate: false
+          sortKey: -1748460972496
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/novoServico?usuarioId=5
+        name: Novo Serviço
+        meta:
+          id: req_1295a94bdc6e4c82b6d0f9fc7bb00741
+          created: 1748461010713
+          modified: 1748533414390
+          isPrivate: false
+          sortKey: -1748461010713
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+            	"tipo" : "SAUDE",
+            	"tipoSaude" : "FISIOTERAPIA",
+            	"descricao" : "Serviço de Sessão de Fisioterapia para alunos e público externo",
+            	"local" : "Laboratório de Fisioterapia, Prédio 1, Nível 1",
+            	"dataInicial" : "2025-06-01",
+            	"horaInicial" : "14:00",
+            	"horaFinal" : "16:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/delete/2?usuarioId=5
+        name: Exclusão de Serviço
+        meta:
+          id: req_7e358ffa26334c9391f2696cce10ab99
+          created: 1748461307622
+          modified: 1748533541259
+          isPrivate: false
+          sortKey: -1748461307622
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/servicos/editarServico/5?usuarioId=5
+        name: Editar Serviço
+        meta:
+          id: req_003e7621b8d04b1186d71264bcaafd86
+          created: 1748461354080
+          modified: 1748533487245
+          isPrivate: false
+          sortKey: -1748461159167.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"tipo" : "SAUDE",
+            	"tipoSaude" : "FISIOTERAPIA",
+            	"descricao" : "MUDEI DESCRIÇÃO",
+            	"local" : "Laboratório de Fisioterapia, Prédio 1, Nível 4",
+            	"dataInicial" : "2025-06-01",
+            	"horaInicial" : "14:00",
+            	"horaFinal" : "16:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_49d6100664f88c4c54500b23486b5912d5779c74
+    created: 1747776504534
+    modified: 1747776504534
+environments:
+  name: Base Environment
+  meta:
+    id: env_49d6100664f88c4c54500b23486b5912d5779c74
+    created: 1747776504525
+    modified: 1747776504525
+    isPrivate: false
