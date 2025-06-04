@@ -46,27 +46,30 @@ function Servico() {
           <p>{servico.descricao}</p>
           <p><strong>Local:</strong> {servico.local}</p>
           {usuarioId && role === "ADMIN" && (
-            <OnclickBotao
-              text="Deletar Serviço"
-              className={`${botaostyles.botaoDeletar} ${styles.delete}`}
-              onClick={() => {
-                if (
-                  window.confirm("Tem certeza que deseja deletar esse evento?")
-                ) {
-                  fetch(`http://localhost:8080/servicos/delete/${id}?usuarioId=${usuarioId}`, {
-                  method: "DELETE",
-                  }).then(() => {
-                    navigate("/");
-                    window.location.reload();
-                  });
-                }
-              }}
-            />
-          )}
-          {usuarioId && role !== "ADMIN" &&(
-            <button className={styles.botaoAvaliar} onClick={irParaAvaliacao}>
-              Avaliar Serviço
-            </button>
+            <div style={{ display: "flex", gap: "12px", marginBottom: "1rem" }}>
+              <button
+                className={styles.botaoAvaliar}
+                onClick={() => navigate(`/EditarServico/${id}`)}
+              >
+                Editar Serviço
+              </button>
+              <OnclickBotao
+                text="Deletar Serviço"
+                className={`${botaostyles.botaoDeletar} ${styles.delete}`}
+                onClick={() => {
+                  if (
+                    window.confirm("Tem certeza que deseja deletar esse evento?")
+                  ) {
+                    fetch(`http://localhost:8080/servicos/delete/${id}?usuarioId=${usuarioId}`, {
+                      method: "DELETE",
+                    }).then(() => {
+                      navigate("/");
+                      window.location.reload();
+                    });
+                  }
+                }}
+              />
+            </div>
           )}
         </div>
       </div>

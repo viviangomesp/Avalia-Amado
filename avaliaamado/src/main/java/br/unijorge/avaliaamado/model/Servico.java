@@ -45,12 +45,10 @@ public class Servico {
 
     private Double nota;
 
-    @Column(nullable = false)
     private LocalDate dataInicial;
 
     private LocalDate dataFinal;
 
-    @Column(nullable = false)
     private LocalTime horaInicial;
 
     private LocalTime horaFinal;

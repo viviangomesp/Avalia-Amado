@@ -12,6 +12,8 @@ import MinhasAvaliacoes from './components/pages/MinhasAvaliacoes'
 import SobreNos from './components/pages/SobreNos'
 import Evento from './components/pages/Evento'
 import Servico from './components/pages/Servico'
+import EditarServico from './components/pages/EditarServico'
+import EditarEvento from './components/pages/EditarEvento'
 
 import Container from './components/layout/Container'
 import NavBar from './components/layout/NavBar'
@@ -38,6 +40,8 @@ function App() {
             <Route path = "/SobreNos" element = {<SobreNos />} />
             <Route path="/evento/:id" element={<Evento />} />
             <Route path="/servico/:id" element={<Servico />} />
+            <Route path="/EditarServico/:id" element={<EditarServico/>} />
+            <Route path="/EditarEvento" element={<EditarEvento/>} />
           </Routes>
         </Container>
         <Footer />
