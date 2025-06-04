@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 15px;
   margin-bottom: 0.5rem;
 }
 
@@ -20,7 +20,7 @@
 .card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.08);
   padding: 20px;
   margin: 12px;
   min-width: 250px;
@@ -40,4 +40,21 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: flex-start;
+}
+
+.servicoCard{
+  transition: transform 0.2s;
+}
+.servicoCard:hover {
+  transform: scale(1.05);
+}
+
+.descricao-limitada {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }

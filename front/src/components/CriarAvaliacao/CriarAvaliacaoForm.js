@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import EstrelasAvaliacao from '../form/EstrelasAvaliacao';
-import SubmitBotao from '../form/SubmitBotao';
+import React, { useState } from "react";
+import EstrelasAvaliacao from "../form/EstrelasAvaliacao";
+import SubmitBotao from "../form/SubmitBotao";
 
-import styles from './CriarAvaliacaoForm.module.css';
+import styles from "./CriarAvaliacaoForm.module.css";
 
 function CriarAvaliacaoForm({ usuarioId, servicoId, eventoId }) {
   const [avaliacao, setAvaliacao] = useState(0);
   const [comentario, setComentario] = useState("");
   const [exibirNome, setExibirNome] = useState("sim"); // valor padrão
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       descricao: comentario,
       nota: Number(avaliacao),
-      isAnonimo: exibirNome === "nao"
+      isAnonimo: exibirNome === "nao",
     };
     console.log("Payload enviado:", payload);
-  
+
     let url = "";
     if (servicoId) {
       url = `http://localhost:8080/avaliacoes/servico/${servicoId}/novaAvaliacao?usuarioId=${usuarioId}&servicoId=${servicoId}`;
@@ -27,16 +27,16 @@ function CriarAvaliacaoForm({ usuarioId, servicoId, eventoId }) {
       alert("ID de serviço ou evento não informado!");
       return;
     }
-  
+
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       if (!response.ok) {
         const erro = await response.text();
-        console.error('Erro do backend:', erro);
+        console.error("Erro do backend:", erro);
         alert("Erro ao enviar avaliação: " + erro);
       } else {
         alert("Avaliação enviada com sucesso!");
@@ -44,8 +44,14 @@ function CriarAvaliacaoForm({ usuarioId, servicoId, eventoId }) {
         setComentario("");
         setExibirNome("sim");
       }
+      // Redireciona para a página do serviço ou evento
+      if (servicoId) {
+        window.location.href = `/Servico/${servicoId}`;
+      } else if (eventoId) {
+        window.location.href = `/Evento/${eventoId}`;
+      }
     } catch (err) {
-      console.error('Erro na requisição:', err);
+      console.error("Erro na requisição:", err);
       alert("Erro na requisição: " + err.message);
     }
   };
@@ -89,7 +95,7 @@ function CriarAvaliacaoForm({ usuarioId, servicoId, eventoId }) {
         value={comentario}
         onChange={(e) => setComentario(e.target.value)}
       />
-      <SubmitBotao  text="Enviar Avaliação" className={styles.btnEnviar} />
+      <SubmitBotao text="Enviar Avaliação" className={styles.btnEnviar} />
     </form>
   );
 }

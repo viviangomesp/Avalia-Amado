@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Input from "../form/Input";
-import styles from "./AlterarDados.module.css";
+import InputServicos from "../form/InputServicos";
+import styles from "./EditarServico.module.css";
 import SubmitBotao from "../form/SubmitBotao";
 
 function EditarServico() {
   const [fadeIn, setFadeIn] = useState(false);
-  const [nome, setNome] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [local, setLocal] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [imagem, setImagem] = useState("");
+  const [values, setValues] = useState({
+    tipo: "",
+    tipoSaude: "",
+    descricao: "",
+    local: "",
+    dataInicial: "",
+    dataFinal: "",
+    horaInicial: "",
+    horaFinal: "",
+  });
   const navigate = useNavigate();
   const { id } = useParams();
   const usuarioId = localStorage.getItem("usuarioId");
@@ -21,16 +26,40 @@ function EditarServico() {
     fetch(`http://localhost:8080/servicos/${id}`)
       .then(res => res.json())
       .then(servico => {
-        setNome(servico.nome || "");
-        setDescricao(servico.descricao || "");
-        setLocal(servico.local || "");
-        setTipo(servico.tipo || "");
-        setImagem(servico.imagem || servico.urlImagem || "");
+        setValues({
+          tipo: servico.tipo || "",
+          tipoSaude: servico.tipoSaude || "",
+          descricao: servico.descricao || "",
+          local: servico.local || "",
+          dataInicial: servico.dataInicial || "",
+          dataFinal: servico.dataFinal || "",
+          horaInicial: servico.horaInicial || "",
+          horaFinal: servico.horaFinal || "",
+        });
       });
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Monta o payload
+    const payload = {
+      tipo: values.tipo || null,
+      descricao: values.descricao || null,
+      local: values.local || null,
+      dataInicial: values.dataInicial || null,
+      dataFinal: values.dataFinal || null,
+      horaInicial: values.horaInicial || null,
+      horaFinal: values.horaFinal || null,
+      // Só envia tipoSaude se o tipo for SAUDE
+      tipoSaude: values.tipo === "SAUDE" ? values.tipoSaude || null : null,
+    };
+  
+    // Remove campos nulos
+    Object.keys(payload).forEach(
+      (key) => (payload[key] === null || payload[key] === "") && delete payload[key]
+    );
+  
     try {
       const response = await fetch(
         `http://localhost:8080/servicos/editarServico/${id}?usuarioId=${usuarioId}`,
@@ -39,7 +68,7 @@ function EditarServico() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ nome, descricao, local, tipo, imagem }),
+          body: JSON.stringify(payload),
         }
       );
       if (response.ok) {
@@ -54,10 +83,17 @@ function EditarServico() {
     }
   };
 
+  function handleChange(e) {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value
+    });
+  }
+
   if (role !== "ADMIN") {
     return (
       <div className={styles.container}>
-        <div className={styles.novoPerfil_container}>
+        <div className={styles.novoServico_container}>
           <h2>Você não tem permissão para editar serviços.</h2>
         </div>
       </div>
@@ -66,49 +102,10 @@ function EditarServico() {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.novoPerfil_container} ${fadeIn ? styles.fadeIn : ""}`}>
+      <div className={`${styles.novoServico_container} ${fadeIn ? styles.fadeIn : ""}`}>
         <h1>Editar Serviço</h1>
         <form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            text="Nome"
-            name="nome"
-            placeholder="Digite o nome do serviço"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <Input
-            type="text"
-            text="Descrição"
-            name="descricao"
-            placeholder="Digite a descrição do serviço"
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-          />
-          <Input
-            type="text"
-            text="Local"
-            name="local"
-            placeholder="Digite o local do serviço"
-            value={local}
-            onChange={(e) => setLocal(e.target.value)}
-          />
-          <Input
-            type="text"
-            text="Tipo"
-            name="tipo"
-            placeholder="Digite o tipo do serviço"
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
-          />
-          <Input
-            type="text"
-            text="URL da Imagem"
-            name="imagem"
-            placeholder="URL da imagem do serviço"
-            value={imagem}
-            onChange={(e) => setImagem(e.target.value)}
-          />
+          <InputServicos onChange={handleChange} values={values} />
           <SubmitBotao text="Alterar Serviço" />
         </form>
       </div>

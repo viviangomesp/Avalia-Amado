@@ -67,7 +67,7 @@ function Evento() {
   }
 
   const irParaAvaliacao = () => {
-    navigate(`/CriarAvaliacao?eventoId=${id}`);
+    navigate(`/CriarAvaliacao/evento/${id}`);
   };
 
   if (!evento) return <p>Carregando evento...</p>;

@@ -20,10 +20,8 @@ const handleClick = () => {
 };
 
 return (
-<div 
-className={styles['evento-card']}
+<div className={styles['eventoCard']}
  onClick={handleClick}
-style={{ cursor: 'pointer' }}
 >
   <div className={styles['evento-img-wrapper']}>
     <img
