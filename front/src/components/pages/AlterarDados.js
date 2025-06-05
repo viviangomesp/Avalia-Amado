@@ -15,27 +15,41 @@ function AlterarDados() {
   // Efeito para aplicar a animação de fade-in e carregar os dados do usuário
   useEffect(() => {
     setFadeIn(true);
-    const usuario = JSON.parse(localStorage.getItem("usuario")) || {};
-    setNome(usuario.nome || "");
-    setEmail(usuario.email || "");
-  }, []);
+    const usuarioId = localStorage.getItem("usuarioId");
+    if (!usuarioId) {
+      navigate("/cadastro");
+      return;
+    }
+    fetch(`http://localhost:8080/usuarios/${usuarioId}`)
+      .then(res => res.json())
+      .then(usuario => {
+        setNome(usuario.nome || "");
+        setEmail(usuario.email || "");
+      });
+  }, [navigate]);
 
   // Função para lidar com o envio do formulário
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Previne o comportamento padrão do formulário
-    const usuarioId = localStorage.getItem("usuarioId"); // Obtém o ID do usuário do localStorage
-    try { 
-      const response = await fetch( // Envia os dados do usuário para o servidor
-        `http://localhost:8080/usuarios/editarUsuario/${usuarioId}`, // Faz a requisição para editar os dados do usuário
+    e.preventDefault();
+  
+    // Validação dos campos
+    if (!nome.trim() || !email.trim() || !senha.trim()) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+  
+    const usuarioId = localStorage.getItem("usuarioId");
+    try {
+      const response = await fetch(
+        `http://localhost:8080/usuarios/editarUsuario/${usuarioId}`,
         {
-          method: "PUT", 
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ nome, email, senha }),
         }
       );
-      // Verifica se a resposta da requisição foi bem-sucedida
       if (response.ok) {
         alert("Dados alterados com sucesso!");
         localStorage.setItem("usuario", JSON.stringify({ nome, email }));
@@ -47,6 +61,7 @@ function AlterarDados() {
       alert("Erro ao conectar com o servidor.");
     }
   };
+
   // Renderiza o componente AlterarDados
   return (
     <div className={styles.container}>	
