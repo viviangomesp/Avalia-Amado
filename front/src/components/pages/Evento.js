@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./Evento.module.css";
 import Capa from "../../img/CapaEvento.png";
@@ -20,19 +20,6 @@ function Evento() {
       .then((res) => res.json())
       .then(setEvento);
 
-    if (usuarioId) {
-      fetch(
-        `http://localhost:8080/avaliacoes/usuario/${usuarioId}/evento/${id}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (data && data.id) setAvaliacaoUsuario(data);
-          else setAvaliacaoUsuario(null);
-        });
-    } else {
-      setAvaliacaoUsuario(null);
-    }
-
     fetch(`http://localhost:8080/avaliacoes/evento/${id}/media`)
       .then((res) => res.json())
       .then((val) => setMedia(Number(val)));
@@ -46,6 +33,12 @@ function Evento() {
     if (!dataStr) return "";
     const [ano, mes, dia] = dataStr.split("-");
     return `${dia}/${mes}/${ano}`;
+  }
+
+  function formatarHora(horaStr) {
+    if (!horaStr) return "";
+    const [hora, minuto] = horaStr.split(":");
+    return `${hora.padStart(2, "0")}:${minuto.padStart(2, "0")}`;
   }
 
   // Usa dataFinal se existir, senão dataInicial
@@ -89,10 +82,19 @@ function Evento() {
               ? ` até ${formatarData(evento.dataFinal)}`
               : ""}
           </h1>
-          <p>{evento.descricao}</p>
+          {/*mostrar hora inicial e final do evento*/}
+          <div className={styles.horaEvento}>
+            <p>
+              Hora Inicial: {formatarHora(evento.horaInicial)}
+              {evento.horaFinal && evento.horaFinal !== evento.horaInicial
+                ? ` - Hora Final: ${formatarHora(evento.horaFinal)}`
+                : ""}
+            </p>
+          </div>
           <p>
             <strong>{evento.local}</strong>
           </p>
+          <p>{evento.descricao}</p>
           {media !== null && !isNaN(Number(media)) && (
             <div className={styles.mediaAvaliacao}>
               Média das avaliações:{" "}
@@ -108,9 +110,12 @@ function Evento() {
                 if (
                   window.confirm("Tem certeza que deseja deletar esse evento?")
                 ) {
-                  fetch(`http://localhost:8080/eventos/delete/${id}?usuarioId=${usuarioId}`, {
-                  method: "DELETE",
-                  }).then(() => {
+                  fetch(
+                    `http://localhost:8080/eventos/delete/${id}?usuarioId=${usuarioId}`,
+                    {
+                      method: "DELETE",
+                    }
+                  ).then(() => {
                     navigate("/");
                     window.location.reload();
                   });
@@ -118,7 +123,7 @@ function Evento() {
               }}
             />
           )}
-            {usuarioId && role !== "ADMIN" ? (
+          {usuarioId && role !== "ADMIN" ? (
             eventoJaAconteceu(evento) ? (
               avaliacaoUsuario ? (
                 <button className={styles.botaoDesabilitado} disabled>
@@ -147,9 +152,7 @@ function Evento() {
             {avaliacoes.map((av) => (
               <div key={av.id} className={styles.avaliacaoBox}>
                 <div>
-                  <strong>
-                    {av.isAnonimo ? "Anônimo" : av.usuario?.nome || "Usuário"}
-                  </strong>
+                  <strong>{av.nomeUsuario}</strong>
                   {" - "}
                   <span>{av.nota} ⭐</span>
                 </div>

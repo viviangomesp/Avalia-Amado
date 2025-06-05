@@ -1,5 +1,6 @@
 package br.unijorge.avaliaamado.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class Avaliacao {
     private Double nota;
 
     @Column(nullable = false)
+    @JsonProperty("isAnonimo")
     private boolean isAnonimo;
 
     @ManyToOne //Um usuário pode ter várias avaliações

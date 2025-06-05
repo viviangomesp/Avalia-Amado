@@ -1,13 +1,13 @@
 .navbar{
-    display: flex;
-    justify-content: space-between;
+    display: flex; /* Flexbox para layout */
+    justify-content: space-between; /* Espaçamento igual entre os itens */
     background-color: #f7f7f6; 
-    padding: 1em;
+    padding: 1em; /* Espaçamento interno */
     font-family: 'Inter', sans-serif;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid #000; 
 }
 .navbar a {
-    text-decoration: none;
+    text-decoration: none; 
 }
 
 .list{

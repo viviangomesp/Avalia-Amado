@@ -33,7 +33,7 @@ return (
   <div className={styles['evento-info']}>
     <h4 className={styles['evento-nome']}>{evento.nome}</h4>
     <p className={styles['evento-local']}>{evento.local}</p>
-    <p className={styles['evento-data']}>{formatarData(evento.data_inicial)}</p>
+    <p className={styles['evento-data']}>{formatarData(evento.dataInicial)}</p>
     {new Date(evento.data_inicial) > new Date() ? (
       <p className={styles['evento-aviso']}>Evento ainda não aconteceu</p>
     ) : evento.nota ? (

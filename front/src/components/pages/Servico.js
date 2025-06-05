@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./servico.module.css";
 import Capa from "../../img/CapaServico.png";
@@ -8,6 +8,7 @@ import botaostyles from "../layout/OnclickBotao.module.css";
 function Servico() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [media, setMedia] = useState(null);
   const [servico, setServico] = useState(null);
   const [avaliacoes, setAvaliacoes] = useState([]);
   const usuarioId = localStorage.getItem("usuarioId");
@@ -15,6 +16,10 @@ function Servico() {
   const [avaliacaoUsuario, setAvaliacaoUsuario] = useState(null);
 
   useEffect(() => {
+    fetch(`http://localhost:8080/avaliacoes/servico/${id}/media`)
+      .then((res) => res.json())
+      .then((val) => setMedia(Number(val)));
+      
     fetch(`http://localhost:8080/servicos/${id}`)
       .then((res) => res.json())
       .then(setServico);
@@ -22,19 +27,6 @@ function Servico() {
     fetch(`http://localhost:8080/avaliacoes/servico/${id}`)
       .then((res) => res.json())
       .then(setAvaliacoes);
-
-    if (usuarioId) {
-      fetch(
-        `http://localhost:8080/avaliacoes/usuario/${usuarioId}/servico/${id}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (data && data.id) setAvaliacaoUsuario(data);
-          else setAvaliacaoUsuario(null);
-        });
-    } else {
-      setAvaliacaoUsuario(null);
-    }
   }, [id, usuarioId]);
 
   const irParaAvaliacao = () => {
@@ -74,6 +66,12 @@ function Servico() {
         {/* Informações à direita */}
         <div className={styles.info}>
           <h1>{servico.nome || servico.tipo}</h1>
+          {media !== null && !isNaN(Number(media)) && (
+            <div className={styles.mediaAvaliacao}>
+              Média das avaliações:{" "}
+              <strong>{Number(media).toFixed(1)} ⭐</strong>
+            </div>
+          )}
           <p>{servico.descricao}</p>
           <p>
             <strong>Local:</strong> {servico.local}
@@ -83,16 +81,19 @@ function Servico() {
             servicoJaAconteceu(servico) ? (
               avaliacaoUsuario ? (
                 <button className={styles.botaoDesabilitado} disabled>
-                  Você já avaliou esse evento
+                  Você já avaliou esse serviço
                 </button>
               ) : (
-                <button className={styles.botaoAvaliar} onClick={irParaAvaliacao}>
-                  Avaliar Evento
+                <button
+                  className={styles.botaoAvaliar}
+                  onClick={irParaAvaliacao}
+                >
+                  Avaliar Serviço
                 </button>
               )
             ) : (
               <button className={styles.botaoDesabilitado} disabled>
-                Você poderá avaliar esse evento assim que ele acabar.
+                Você poderá avaliar esse serviço assim que ele acabar.
               </button>
             )
           ) : null}
@@ -110,7 +111,7 @@ function Servico() {
                 onClick={() => {
                   if (
                     window.confirm(
-                      "Tem certeza que deseja deletar esse evento?"
+                      "Tem certeza que deseja deletar esse serviço?"
                     )
                   ) {
                     fetch(
@@ -138,9 +139,7 @@ function Servico() {
           <ul>
             {avaliacoes.map((av) => (
               <li key={av.id} className={styles.avaliacaoCard}>
-                <strong>
-                  {av.isAnonimo ? "Anônimo" : av.usuario?.nome || "Usuário"}
-                </strong>
+                <strong>{av.nomeUsuario}</strong>
                 {" - "}
                 <span>{av.nota} ⭐</span>
                 <div>{av.descricao}</div>

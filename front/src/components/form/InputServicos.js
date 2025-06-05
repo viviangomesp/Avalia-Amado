@@ -1,15 +1,17 @@
 import styles from "./InputServicos.module.css";
 
+// componente de entrada de formulário para serviços
 function InputServicos({ onChange, values }) {
   return (
     <div className={styles.form_control}>
       <div className={styles.input_grupo}>
+        {/* campo de entrada para o nome do serviço */}
         <label htmlFor="tipo">Tipo do Serviço</label>
-        <select
+        <select // campo de seleção para o tipo de serviço
           id="tipo"
           name="tipo"
-          value={values.tipo || ""}
-          onChange={onChange}
+          value={values.tipo || ""} // valor inicial do campo
+          onChange={onChange} // função para lidar com mudanças
         >
           <option value="">Selecione o tipo</option>
           <option value="JURIDICO">Jurídico</option>
@@ -22,14 +24,15 @@ function InputServicos({ onChange, values }) {
           <option value="SAUDE">Saúde</option>
         </select>
       </div>
-      {values.tipo === "SAUDE" && (
+      {/* campo de entrada para o nome do serviço */}
+      {values.tipo === "SAUDE" && ( // mostra campos adicionais SE o tipo for Saúde
         <div className={styles.input_grupo}>
           <label htmlFor="tipoSaude">Tipo de Serviço de Saúde</label>
           <select
             id="tipoSaude"
             name="tipoSaude"
-            value={values.tipoSaude || ""}
-            onChange={onChange}
+            value={values.tipoSaude || ""} // valor inicial do campo
+            onChange={onChange} // função para lidar com mudanças
           >
             <option value="">Selecione o tipo de serviço de saúde</option>
             <option value="PSICOLOGIA">Psicologia</option>
@@ -41,70 +44,24 @@ function InputServicos({ onChange, values }) {
       )}
       <div className={styles.input_grupo}>
         <label htmlFor="local">Local</label>
+        {/* campo de entrada para o local do serviço */}
         <input
           type="text"
           id="local"
           name="local"
-          value={values.local || ""}
-          onChange={onChange}
+          value={values.local || ""} // valor inicial do campo
+          onChange={onChange} // função para lidar com mudanças
           placeholder="Digite o local do serviço"
         />
       </div>
-      <div className={styles.data_juntas}>
-        <div className={styles.input_grupo}>
-          <label html="dataInicial">Data Inicial</label>
-          <input
-            type="date"
-            id="dataInicial"
-            name="dataInicial"
-            value={values.dataInicial || ""}
-            onChange={onChange}
-            placeholder="Selecione a data inicial"
-          />
-        </div>
-        <div className={styles.input_grupo}>
-          <label htmlFor="dataFinal">Data Final</label>
-          <input
-            type="date"
-            id="dataFinal"
-            name="dataFinal"
-            value={values.dataFinal || ""}
-            onChange={onChange}
-            placeholder="Selecione a data final"
-          />
-        </div>
-      </div>
-      <div className={styles.hora_juntas}>
-        <div className={styles.input_grupo}>
-          <label htmlFor="horaInicial">Hora Inicial</label>
-          <input
-            type="time"
-            id="horaInicial"
-            name="horaInicial"
-            value={values.horaInicial || ""}
-            onChange={onChange}
-            placeholder="Selecione a hora inicial"
-          />
-        </div>
-        <div className={styles.input_grupo}>
-          <label htmlFor="horaFinal">Hora Final</label>
-          <input
-            type="time"
-            id="horaFinal"
-            name="horaFinal"
-            value={values.horaFinal || ""}
-            onChange={onChange}
-            placeholder="Selecione a hora final"
-          />
-        </div>
-      </div>
       <div className={styles.input_grupo}>
         <label htmlFor="descricao">Descrição do Serviço</label>
+        {/* campo de entrada para a descrição do serviço */}
         <textarea
           id="descricao"
           name="descricao"
-          value={values.descricao || ""}
-          onChange={onChange}
+          value={values.descricao || ""} // valor inicial do campo
+          onChange={onChange} // função para lidar com mudanças
           placeholder="Descreva o serviço"
         />
       </div>

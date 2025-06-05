@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import EventoCard from '../layout/EventoCard';
 import './MinhasAvaliacoes.module.css';
 import { useNavigate } from 'react-router-dom';

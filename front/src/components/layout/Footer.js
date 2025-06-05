@@ -1,6 +1,7 @@
-import { FaInstagram } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa'; // Importa o ícone do Instagram
 import styles from './Footer.module.css';
 
+// Componente de rodapé para o site Avalia AMADO
 function Footer() {
     return (
         <footer className={styles.footer}>
@@ -16,9 +17,10 @@ function Footer() {
                 <div>
                     <ul className = {styles.social_list}>
                         <li>
-                            <p>Entre em contato conosco: <br/>
+                            {/* Informações de contato e links sociais */}
+                            <p>Entre em contato conosco: <br/> 
                                 E-mail: <a 
-                                    href="mailto:eqp_amadoavalia@nucleoamado.com"
+                                    href="mailto:eqp_amadoavalia@nucleoamado.com" 
                                     className = {styles.email_link}>
 
                                     eqp_amadoavalia@nucleoamado.com

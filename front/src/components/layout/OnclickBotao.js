@@ -1,5 +1,6 @@
 import styles from './OnclickBotao.module.css';
 
+// Componente de botão reutilizável
 function OnclickBotao({ text, className, ...props }) {
     return (
         <div>

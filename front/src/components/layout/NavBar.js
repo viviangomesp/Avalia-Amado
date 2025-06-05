@@ -4,10 +4,13 @@ import styles from "./NavBar.module.css";
 import logo from "../../img/Titulo_Avalia.png";
 
 function NavBar() {
+    // Estado para controlar se o usuário está logado 
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("usuarioId"));
+    // Estado para controlar a função do usuário
     const [role, setRole] = useState(localStorage.getItem("role"));
     const navigate = useNavigate();
 
+    // Garante a atualização do 'storage'
     useEffect(() => {
         const onStorage = () => {
             setIsLoggedIn(!!localStorage.getItem("usuarioId"));
@@ -17,19 +20,21 @@ function NavBar() {
         return () => window.removeEventListener("storage", onStorage);
     }, []);
 
+    // Garante a atualização do 'storage' ao carregar a NavBar
     useEffect(() => {
         setIsLoggedIn(!!localStorage.getItem("usuarioId"));
         setRole(localStorage.getItem("role"));
     }, []);
 
+    // Função para lidar com o logout
     function handleLogout() {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("role");
         localStorage.removeItem("usuarioId");
         setIsLoggedIn(false);
-        setRole(null);
+        setRole(null);// Limpa o role
         navigate("/");
-        window.location.reload(); // força o reload da página
+        window.location.reload(); // Força o reload da página
     }
 
     return (
@@ -65,7 +70,7 @@ function NavBar() {
                 <li className={styles.item}>
                     <Link to="/SobreNos">Sobre Nós</Link>
                 </li>
-                {isLoggedIn && (
+                {isLoggedIn && ( // Verifica se o usuário está logado
                     <li className={styles.item}>
                         <button onClick={handleLogout} className={styles.logout}>
                             Sair

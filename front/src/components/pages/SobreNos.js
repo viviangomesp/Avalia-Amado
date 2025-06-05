@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SobreNos.module.css';
 
+// Componente para exibir informações sobre a plataforma
 function SobreNos() {
+    // Estado para controlar a animação de fade-in
     const [fadeIn, setFadeIn] = useState(false);
-
+    // Efeito para aplicar a animação de fade-in quando o componente é montado
     useEffect(() => {
         setFadeIn(true);
     }, []);

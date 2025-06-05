@@ -4,14 +4,21 @@ INSERT INTO usuario (nome, email, senha, role) VALUES
 ('Bruno Lima', 'bruno@unijorge.edu.br', 'abc123',''),
 ('Carla Mendes', 'carla@unijorge.edu.br', 'qwerty',''),
 ('Diego Santos', 'diego@unijorge.edu.br', 'pass456',''),
-('Administrador', 'admin@unijorge.edu.br','admin','ADMIN');
+('Administrador', 'admin@unijorge.edu.br','admin','ADMIN'),
+('Eduarda Silva', 'eduarda@unijorge.edu.br', 'senhaedu',''),
+('Felipe Costa', 'felipe@unijorge.edu.br', 'senhafelipe',''),
+('Gabriela Rocha', 'gabriela@unijorge.edu.br', 'gabri123',''),
+('Henrique Alves', 'henrique@unijorge.edu.br', 'henri456',''),
+('Isabela Torres', 'isabela@unijorge.edu.br', 'isa789','');
 
 -- EVENTOS
 INSERT INTO evento (nome, nota, local, data_inicial, data_final, hora_inicial, hora_final, descricao) VALUES 
 ('Palestra sobre Direitos LGBTQIA+', 4.8, 'Auditorio Principal', '2023-05-15', '2023-05-15', '10:00:00', '12:00:00', 'Palestra sobre direitos e cidadania LGBTQIA+ na sociedade e no ambiente academico.'),
 ('Oficina de Expressao e Cultura Queer', 4.6, 'Sala de Metodologias Ageis', '2023-08-22', '2023-08-22', '14:00:00', '17:00:00', 'Oficina artistica e cultural voltada para a expressao da diversidade.'),
 ('Roda de Conversa: Vivencias LGBTQIA+', NULL, 'Sala 101', '2025-06-10', '2025-06-10', '16:00:00', '18:00:00', 'Espaço de escuta e compartilhamento de experiencias dentro do campus.'),
-('Festival Diversidade na UniJorge', NULL, 'Recepcao', '2025-11-25', '2025-11-25', '09:00:00', '18:00:00', 'Festival com apresentacoes artisticas, culturais e stands de apoio a diversidade.');
+('Festival Diversidade na UniJorge', NULL, 'Recepcao', '2025-11-25', '2025-11-25', '09:00:00', '18:00:00', 'Festival com apresentacoes artisticas, culturais e stands de apoio a diversidade.'),
+('Workshop de Inclusão Digital', NULL, 'Laboratório 2', '2024-09-05', '2024-09-05', '13:00:00', '16:00:00', 'Capacitação em ferramentas digitais para inclusão.'),
+('Mesa Redonda: Saúde Mental', NULL, 'Sala 202', '2024-10-20', '2024-10-20', '15:00:00', '17:00:00', 'Discussão sobre saúde mental na comunidade LGBTQIA+.');
 
 -- SERVICOS
 INSERT INTO servico (tipo, tipo_saude, descricao, local, nota, data_inicial, data_final, hora_inicial, hora_final)
@@ -26,15 +33,39 @@ VALUES ('SAUDE', 'PSICOLOGIA', 'Atendimento psicologico para estudantes LGBTQIA+
 INSERT INTO servico (tipo, tipo_saude, descricao, local, nota, data_inicial, data_final, hora_inicial, hora_final)
 VALUES ('COMUNICACAO', NULL, 'Consultoria em marketing digital para projetos LGBTQIA+ na universidade.', 'Sala de Comunicacao', NULL, '2025-04-01', '2025-12-15', '09:00:00', '17:00:00');
 
+INSERT INTO servico (tipo, tipo_saude, descricao, local, nota, data_inicial, data_final, hora_inicial, hora_final)
+VALUES ('SAUDE', 'ENFERMAGEM', 'Atendimento de enfermagem para prevenção de ISTs.', 'Posto de Saúde', NULL, '2024-01-10', '2024-12-20', '08:00:00', '14:00:00');
+
+INSERT INTO servico (tipo, tipo_saude, descricao, local, nota, data_inicial, data_final, hora_inicial, hora_final)
+VALUES ('EDUCACAO', NULL, 'Oficinas de redação para vestibular inclusivo.', 'Sala de Redação', 4.5, '2024-03-01', '2024-11-30', '14:00:00', '18:00:00');
+
 -- AVALIACAO EVENTO 1
 INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
 ('Excelente conteúdo, muito esclarecedor!', 5, false, 1, 1, NULL),
-('A palestra foi muito boa, mas o tempo poderia ser maior.', 4, true, 2, 1, NULL);
+('A palestra foi muito boa, mas o tempo poderia ser maior.', 4, true, 2, 1, NULL),
+('Gostei muito da abordagem dos palestrantes.', 5, false, 3, 1, NULL);
 
 -- AVALIACAO EVENTO 2
 INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
 ('Oficina maravilhosa, me senti muito acolhida!', 5, false, 3, 2, NULL),
-('Faltou materiais, mas foi ótimo no geral.', 4, true, 4, 2, NULL);
+('Faltou materiais, mas foi ótimo no geral.', 4, true, 4, 2, NULL),
+('Aprendi novas técnicas de expressão.', 5, false, 5, 2, NULL);
+
+-- AVALIACAO EVENTO 3
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Muito importante esse espaço de fala.', 5, false, 6, 3, NULL);
+
+-- AVALIACAO EVENTO 4
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Evento incrível, parabéns aos organizadores!', 5, false, 7, 4, NULL);
+
+-- AVALIACAO EVENTO 5
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Workshop bem organizado.', 4, false, 8, 5, NULL);
+
+-- AVALIACAO EVENTO 6
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Discussão muito relevante.', 5, false, 9, 6, NULL);
 
 -- AVALIACAO SERVICO 1
 INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
@@ -45,3 +76,11 @@ INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servi
 INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
 ('A psicóloga foi incrível, me ajudou muito a enfrentar meus desafios.', 5, false, 1, NULL, 3),
 ('Me senti seguro e acolhido durante as sessões.', 4, true, 4, NULL, 3);
+
+-- AVALIACAO SERVICO 3
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Enfermeira muito atenciosa.', 5, false, 5, NULL, 5);
+
+-- AVALIACAO SERVICO 4
+INSERT INTO avaliacao (descricao, nota, is_anonimo, id_user, id_evento, id_servico) VALUES 
+('Oficina de redação me ajudou a passar no vestibular.', 5, false, 6, NULL, 6);

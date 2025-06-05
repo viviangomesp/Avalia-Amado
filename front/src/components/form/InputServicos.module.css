@@ -20,15 +20,3 @@
     border: none;
     box-sizing: border-box;
 }
-
-.data_juntas{
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-}
-
-.hora_juntas{
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-}

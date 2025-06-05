@@ -83,6 +83,18 @@ public class AvaliacaoController {
         return ResponseEntity.ok(novaAvaliacao);
     }
 
+    @GetMapping("/evento/{eventoId}/media")
+    public ResponseEntity<Double> getMediaEvento(@PathVariable Long eventoId) {
+        Double media = avaliacaoService.getMediaEvento(eventoId);
+        return ResponseEntity.ok(media);
+    }
+
+    @GetMapping("/servico/{servicoId}/media")
+    public ResponseEntity<Double> getMediaServico(@PathVariable Long servicoId) {
+        Double media = avaliacaoService.getMediaServico(servicoId);
+        return ResponseEntity.ok(media);
+    }
+
     @DeleteMapping("/delete/{id}") // Deletar avaliação por ID
     public ResponseEntity<Void> deleteAvaliacao(@PathVariable Long id) {
         avaliacaoService.deleteAvaliacao(id);

@@ -123,3 +123,8 @@
   transition: background 0.2s;
   
 }
+
+.horaEvento{
+  font-weight: bold;
+  font-size: 1.05em;
+}

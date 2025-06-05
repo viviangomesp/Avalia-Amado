@@ -143,6 +143,20 @@ public class AvaliacaoService {
         return avaliacaoRepository.findByUsuario_Id(usuarioId);
     }
 
+    public Double getMediaEvento(Long eventoId) {
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByEvento_Id(eventoId);
+        if (avaliacoes.isEmpty())
+            return 0.0;
+        return avaliacoes.stream().mapToDouble(Avaliacao::getNota).average().orElse(0.0);
+    }
+
+    public Double getMediaServico(Long servicoId) {
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByServico_Id(servicoId);
+        if (avaliacoes.isEmpty())
+            return 0.0;
+        return avaliacoes.stream().mapToDouble(Avaliacao::getNota).average().orElse(0.0);
+    }
+
     public List<Avaliacao> getAvaliacoesPorNota(Double nota) {
         return avaliacaoRepository.findByNotaGreaterThanEqual(nota);
     }

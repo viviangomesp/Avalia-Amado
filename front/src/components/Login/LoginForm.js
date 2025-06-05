@@ -4,10 +4,12 @@ import Input from '../form/Input';
 import SubmitBotao from '../form/SubmitBotao';
 import styles from './LoginForm.module.css';
 
+// Componente de formulário de login
 function LoginForm({ botaoText }) {
-    const [form, setForm] = useState({ email: '', senha: '' });
-    const navigate = useNavigate();
+    const [form, setForm] = useState({ email: '', senha: '' }); // Estado para armazenar os dados do formulário
+    const navigate = useNavigate(); // Hook para navegação entre páginas
 
+    // Função para lidar com as mudanças nos campos do formulário
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
@@ -37,6 +39,7 @@ function LoginForm({ botaoText }) {
     }
 
     return (
+        // Formulário de login
         <form className={styles.form} onSubmit={handleSubmit}>
             <Input
                 type="email"
@@ -44,7 +47,7 @@ function LoginForm({ botaoText }) {
                 name="email"
                 placeholder="Insira seu email"
                 value={form.email}
-                onChange={handleChange}
+                onChange={handleChange} // função para lidar com mudanças
             />
             <Input
                 type="password"
@@ -52,7 +55,7 @@ function LoginForm({ botaoText }) {
                 name="senha"
                 placeholder="Digite sua senha"
                 value={form.senha}
-                onChange={handleChange}
+                onChange={handleChange} // função para lidar com mudanças
             />
             <SubmitBotao text={botaoText} />
         </form>

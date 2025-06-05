@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; // Importa React e hooks
+import { useEffect, useState } from 'react'; // Importa React e hooks
 import styles from './MeuPerfil.module.css'; // Importa os estilos CSS do perfil
 import fotoperfil from '../../img/fotoperfil.png'; // Importa imagem padrão de perfil
 import { useNavigate } from 'react-router-dom'; // Importa hook para navegação
