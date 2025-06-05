@@ -2,7 +2,7 @@
 
 #### **A platform to review services and events of Núcleo Amado, promoting improvements in quality and community inclusion.**
 
-![banner](https://github.com/user-attachments/assets/f2165e0e-259f-4846-aaf4-e29a21db594c)
+![banner](https://github.com/viviangomesp/Avalia-Amado/blob/develop/insomnia/Apresenta%C3%A7%C3%A3o%20B%C3%A1sica%20Simples%20Manchas%20Pastel.png)
 
 
 ## About the Project
