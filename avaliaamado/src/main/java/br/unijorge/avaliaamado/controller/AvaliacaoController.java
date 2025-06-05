@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.unijorge.avaliaamado.DTO.AvaliacaoResponse;
 import br.unijorge.avaliaamado.model.Avaliacao;
 import br.unijorge.avaliaamado.service.AvaliacaoService;
 import br.unijorge.avaliaamado.service.EventoService;
@@ -50,13 +51,15 @@ public class AvaliacaoController {
     }
 
     @GetMapping("/evento/{eventoId}") // Lista avaliações por ID do evento
-    public ResponseEntity<List<Avaliacao>> getAvaliacoesByEventoId(@PathVariable Long eventoId) {
-        return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorEvento(eventoId));
+    public ResponseEntity<List<AvaliacaoResponse>> listarAvaliacoesPorEvento(@PathVariable Long eventoId) {
+        List<AvaliacaoResponse> avaliacoes = avaliacaoService.getAvaliacaoPorEvento(eventoId);
+        return ResponseEntity.ok(avaliacoes);
     }
 
     @GetMapping("/servico/{servicoId}") // Lista avaliações por ID do serviço
-    public ResponseEntity<List<Avaliacao>> getAvaliacoesByServicoId(@PathVariable Long servicoId) {
-        return ResponseEntity.ok(avaliacaoService.getAvaliacoesPorServico(servicoId));
+    public ResponseEntity<List<AvaliacaoResponse>> listarAvaliacoesPorServico(@PathVariable Long servicoId) {
+        List<AvaliacaoResponse> avaliacoes = avaliacaoService.getAvaliacaoPorServico(servicoId);
+        return ResponseEntity.ok(avaliacoes);
     }
 
     @GetMapping("/usuario/{usuarioId}") // Lista todas as avaliações do usuário por seu ID

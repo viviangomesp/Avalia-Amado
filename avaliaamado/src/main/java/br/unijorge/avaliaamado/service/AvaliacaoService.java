@@ -2,10 +2,12 @@ package br.unijorge.avaliaamado.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.unijorge.avaliaamado.DTO.AvaliacaoResponse;
 import br.unijorge.avaliaamado.model.Avaliacao;
 import br.unijorge.avaliaamado.model.Evento;
 import br.unijorge.avaliaamado.model.Servico;
@@ -108,6 +110,20 @@ public class AvaliacaoService {
             throw new RuntimeException("Apenas administradores podem listar todas as avaliações. Acesso Negado.");
         }
         return avaliacaoRepository.findAll();
+    }
+
+    public List<AvaliacaoResponse> getAvaliacaoPorEvento (long eventoId) {
+        List<Avaliacao> avaliacoes = getAvaliacoesPorEvento(eventoId);
+        return avaliacoes.stream()
+                .map(AvaliacaoResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<AvaliacaoResponse> getAvaliacaoPorServico (long servicoId) {
+        List<Avaliacao> avaliacoes = getAvaliacoesPorServico(servicoId);
+        return avaliacoes.stream()
+                .map(AvaliacaoResponse::new)
+                .collect(Collectors.toList());
     }
 
     public Avaliacao getAvaliacao(long id) {
