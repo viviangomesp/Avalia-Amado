@@ -13,10 +13,6 @@ function CadastrarServicoForm({ botaoText }) {
         tipoSaude: '',
         descricao: '',
         local: '',
-        dataInicial: '',
-        dataFinal: '',
-        horaInicial: '',
-        horaFinal: '',
     });
 
     if (tipoUsuario !== 'ADMIN') {
@@ -38,8 +34,6 @@ function CadastrarServicoForm({ botaoText }) {
             !values.tipo ||
             !values.descricao ||
             !values.local ||
-            !values.dataInicial ||
-            !values.horaInicial ||
             (values.tipo === "SAUDE" && !values.tipoSaude)
         ) {
             alert("Preencha todos os campos obrigatórios!");
@@ -50,11 +44,7 @@ function CadastrarServicoForm({ botaoText }) {
             tipo: values.tipo,
             descricao: values.descricao,
             local: values.local,
-            dataInicial: values.dataInicial,
-            horaInicial: values.horaInicial,
         };
-        if (values.dataFinal) servicoPayload.dataFinal = values.dataFinal;
-        if (values.horaFinal) servicoPayload.horaFinal = values.horaFinal;
         if (values.tipo === "SAUDE") servicoPayload.tipoSaude = values.tipoSaude;
     
         try {
