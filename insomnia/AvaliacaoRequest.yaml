@@ -1,0 +1,221 @@
+type: collection.insomnia.rest/5.0
+name: Avaliação Request
+meta:
+  id: wrk_6d5cf4f01fc9456eba83c5f4b67b6bd9
+  created: 1748992811090
+  modified: 1748992811090
+collection:
+  - name: Avaliação
+    meta:
+      id: fld_619e08faa13b4139956e3b59f9c2c315
+      created: 1748458808598
+      modified: 1748992834044
+      sortKey: -1748458808598
+    children:
+      - url: http://localhost:8080/avaliacoes/2
+        name: Avaliação por ID
+        meta:
+          id: req_701e37c26ac64339a967ccb060e3e211
+          created: 1748458923528
+          modified: 1748534261545
+          isPrivate: false
+          sortKey: -1748458923528
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/all?usuarioId=2
+        name: Todas Avaliações
+        meta:
+          id: req_7c3c5de9201041d7aa6257d8132fa283
+          created: 1748458978913
+          modified: 1748877047276
+          isPrivate: false
+          sortKey: -1748458978913
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/evento/1
+        name: Avaliações por Evento
+        meta:
+          id: req_d592ab0b4ae246f1a49bbc93b51588e2
+          created: 1748459010520
+          modified: 1748533882825
+          isPrivate: false
+          sortKey: -1748459010520
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/servico/1
+        name: Avaliações por Serviço
+        meta:
+          id: req_ab77568eedc447899863167fceba1316
+          created: 1748459085442
+          modified: 1748533894171
+          isPrivate: false
+          sortKey: -1748459085442
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/usuario/1
+        name: Avaliações por Usuário
+        meta:
+          id: req_fcf09ab386af4fc1941661899cb494d7
+          created: 1748459152544
+          modified: 1748533919380
+          isPrivate: false
+          sortKey: -1748459152544
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/servico/1/novaAvaliacao?servicoId=1&usuarioId=4
+        name: Nova Avaliação de Serviço
+        meta:
+          id: req_1a2a3b0200c14342ae7e17b30aa415ff
+          created: 1748459216265
+          modified: 1748469682060
+          isPrivate: false
+          sortKey: -1748459216265
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+            	"descricao" : "Gostei muito desse evento! Trouxe bastante conhecimento.",
+            	"nota" : 5.0,
+            	"isAnonimo" : false,
+            	"usuario" : {
+            		"id": 4
+            },
+            	"servico":{
+            		"id" : 1
+            }
+
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/evento/1/novaAvaliacao?eventoId=1&usuarioId=1
+        name: Nova Avaliação de Evento
+        meta:
+          id: req_f3615c76862d4f88b889c275b5b1121d
+          created: 1748459598274
+          modified: 1748530326663
+          isPrivate: false
+          sortKey: -1748459598274
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+            	"descricao" : "Incrível participar dessa experiência, mas não deveria ter tanta espera.",
+            	"nota" : 4.5,
+            	"isAnonimo" : true,
+            	"usuario" : {
+            		"id": 5
+            },
+            	"evento":{
+            		"eventoId" : 2
+            }
+
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/avaliacoes/delete/1
+        name: Exclusão Avaliação
+        meta:
+          id: req_a75c586ae5b64283811220f31e76ebf6
+          created: 1748459791184
+          modified: 1748534164164
+          isPrivate: false
+          sortKey: -1748459598374
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_256561b3c47e1830a2c61933c17559b6d5074307
+    created: 1748992811094
+    modified: 1748992811094
+environments:
+  name: Base Environment
+  meta:
+    id: env_256561b3c47e1830a2c61933c17559b6d5074307
+    created: 1748992811092
+    modified: 1748992811092
+    isPrivate: false

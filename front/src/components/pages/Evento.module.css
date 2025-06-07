@@ -1,0 +1,130 @@
+.linha {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.eventoContainer {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column; /* <-- agora é coluna! */
+  font-family: 'Arial', sans-serif;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #0001;
+}
+
+.imagem-wrapper {
+  width: 400px;
+  min-width: 300px;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.imagemEvento {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.eventoInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.mediaAvaliacao {
+  margin: 1rem 0 1.5rem 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.botaoDesabilitado {
+  background: #ccc;
+  color: #888;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  cursor: not-allowed;
+  margin-bottom: 1rem;
+}
+
+.cadastro {
+    background: #0d1321 ;        
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 1rem;
+}
+.cadastro:hover {
+ background: #fcbfb7;
+;
+}
+
+.avaliacoesContainer {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listaAvaliacoes {
+  display: flex;
+  flex-direction: row;      /* <-- linha */
+  flex-wrap: wrap;          /* <-- permite quebrar para baixo */
+  gap: 1.2rem;
+  align-items: flex-start;
+  justify-content: center;  /* centraliza as linhas */
+  width: 100%;
+}
+
+.avaliacaoBox {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  min-width: 280px;
+  max-width: 350px;
+  box-shadow: 0 2px 8px #0001;
+  margin: 0;
+  text-align: left;
+  word-break: break-word;
+  flex: 1 1 300px; /* <-- permite crescer e quebrar */
+}
+
+.delete{
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+}
+
+.horaEvento{
+  font-weight: bold;
+  font-size: 1.05em;
+}

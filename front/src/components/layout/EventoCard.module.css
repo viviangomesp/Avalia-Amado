@@ -1,0 +1,79 @@
+.eventoCard {
+  width: 260px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  font-family: Arial, sans-serif;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.eventoCard:hover {
+  transform: scale(1.05);
+}
+
+.evento-img-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 15px; 
+  margin-bottom: 0.5rem;
+}
+
+.evento-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.evento-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.evento-nome {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.evento-local,
+.evento-data {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #333;
+}
+
+.evento-avaliacao {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.evento-aviso {
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.evento-nome,
+.evento-local,
+.evento-data {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}

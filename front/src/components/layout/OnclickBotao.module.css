@@ -1,0 +1,20 @@
+.botao{
+  margin-top: 1.5em;
+  padding: 0.5rem 1rem;
+  background-color: #0d1321;
+  color: white;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background-color: #fcbfb7;
+  color:#0d1321;
+}
+
+.botaoDeletar {
+  background-color:crimson;
+  color: white;
+}

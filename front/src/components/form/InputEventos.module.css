@@ -1,0 +1,33 @@
+.input_grupo input{
+    width: 100%;
+    font-size: 1.1em;
+    padding: 0.8em;
+    margin: 0.5em 0;
+    border-radius: 15px;
+}
+
+.input_grupo textarea {
+    width: 100%;
+    font-size: 1.1em;
+    padding: 7em;
+} 
+
+.junto {
+    display: flex;
+    gap: 1em; 
+}
+
+.junto .input_grupo {
+    flex: 1
+}
+
+.descricao_group textarea {
+    width: 100%;
+    font-size: 1.1em;
+    padding: 0.8em;         
+    text-align: left;
+    vertical-align: top;
+    resize: vertical;
+    min-height: 300px;  
+    border-radius: 15px;    
+}

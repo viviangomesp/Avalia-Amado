@@ -1,0 +1,47 @@
+.input_group {
+    margin-bottom: 2em;
+}
+
+.input_group label {
+    display: block;
+    margin-bottom: 0.7em;
+    margin-top: 1.2em;
+    font-weight: bold;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 200px;
+    font-size: 1.1em;
+    padding: 0.8em;
+    resize: none;
+    box-sizing: border-box;
+}
+
+
+.exibir_nome_bloco {
+    margin: 1.5em 0;
+}
+
+.exibir_nome_titulo {
+    display: block;
+    margin-bottom: 0.7em;
+    font-weight: bold;
+}
+
+
+.exibir_nome_opcoes {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+}
+
+.exibir_nome_opcoes label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.btnEnviar {
+    width: 30%;
+    font-size: 1.7em;
+}
